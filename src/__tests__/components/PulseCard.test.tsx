@@ -28,9 +28,11 @@ jest.mock('../../store/dataStore', () => ({
   }),
 }));
 
-// Test wrapper with router
+// Test wrapper with router and future flags
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <BrowserRouter>{children}</BrowserRouter>
+  <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    {children}
+  </BrowserRouter>
 );
 
 describe('PulseCard Component', () => {
