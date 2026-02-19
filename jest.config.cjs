@@ -4,6 +4,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^import.meta$': '<rootDir>/src/__mocks__/importMeta.js',
   },
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
