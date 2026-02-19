@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Soldier Holdings</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Test loading one component at a time -->
+    <script type="text/babel" src="src/config/constants.js"></script>
+    <script type="text/babel" src="src/services/MockDataService.js"></script>
+    <script type="text/babel" src="src/utils/hooks.js"></script>
+    <script type="text/babel" src="src/components/TransactionItem.jsx"></script>
+    
+    <script type="text/babel">
+        console.log('=== DEBUG TEST ===');
+        console.log('React:', typeof React);
+        console.log('ReactDOM:', typeof ReactDOM);
+        console.log('TransactionItem:', typeof window.TransactionItem);
+        console.log('MockDataService:', typeof window.MockDataService);
+        
+        // Test simple render
+        const TestApp = () => {
+            return React.createElement('div', null, 'Test App Loaded');
+        };
+        
+        const root = document.getElementById('root');
+        ReactDOM.render(React.createElement(TestApp), root);
+    </script>
+</body>
+</html>

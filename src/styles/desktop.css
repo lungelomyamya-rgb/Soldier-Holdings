@@ -1,0 +1,233 @@
+/**
+ * Desktop Styles
+ * 
+ * Desktop-specific styles for larger screens (992px and above)
+ * Optimized for mouse interactions and spacious layouts
+ */
+
+/* ===== DESKTOP NAVBAR ===== */
+@media (min-width: 992px) {
+  .desktop-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-8);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+  }
+
+  .navbar-logo {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .navbar-nav-item {
+    padding: var(--space-3) var(--space-4);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-fast);
+    position: relative;
+  }
+
+  .navbar-nav-item:hover {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+  }
+
+  .navbar-nav-item.active {
+    background: var(--gradient-primary);
+    color: var(--text-inverse);
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .sidebar {
+    display: none;
+  }
+}
+
+/* Desktops (1200px to 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pulse-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fiat-metrics,
+  .crypto-metrics {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .compliance-dashboard,
+  .analytics-dashboard,
+  .settings-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .tools-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Desktop-specific hover effects and interactions */
+@media (min-width: 992px) {
+  .nav-item:hover {
+    transform: translateX(8px);
+    background: rgba(49, 130, 206, 0.15);
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-2xl);
+  }
+
+  .pulse-card:hover {
+    transform: translateY(-6px) scale(1.02);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .transaction-item:hover {
+    transform: translateX(8px);
+  }
+
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .tool-button:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    background: var(--gradient-primary);
+    color: var(--pure-white);
+  }
+
+  .report-download:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .setting-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .user-item:hover {
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .event-item:hover {
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .pattern-item:hover {
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Desktop-specific animations */
+@media (min-width: 992px) {
+  .pulse-card::before {
+    transition: var(--transition-slow);
+  }
+
+  .stat-card::before {
+    transition: var(--transition-slow);
+  }
+
+  .transaction-item::before {
+    transition: var(--transition-slow);
+  }
+
+  .nav-item::before {
+    transition: var(--transition-slow);
+  }
+}
+
+/* Desktop-specific layout optimizations */
+@media (min-width: 992px) {
+  .main-content {
+    margin-left: 0;
+    padding: var(--space-8);
+  }
+
+  .feed-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .feed-filter {
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .compliance-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .compliance-events {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .pattern-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .user-list {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+
+/* Desktop-specific typography scaling */
+@media (min-width: 992px) {
+  .header h2 {
+    font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+  }
+
+  .pulse-amount {
+    font-size: clamp(var(--text-xl), 2.5vw, var(--text-3xl));
+  }
+
+  .stat-value {
+    font-size: clamp(var(--text-lg), 2vw, var(--text-2xl));
+  }
+
+  .metric-value {
+    font-size: clamp(var(--text-lg), 2vw, var(--text-xl));
+  }
+}
