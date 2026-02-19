@@ -12,14 +12,20 @@ export * from './transaction';
 export * from './components';
 export * from './ui';
 
+// Logging and monitoring types
+export type {
+  CorrelationContext,
+  LoggingContextType,
+} from './logging';
+
 // API and service types
 export * from './api';
 
 // Store and state management
 export * from './store';
 
-// Logging and monitoring types
-export * from './logging';
+// Error handling and user feedback types
+export * from './errors';
 
 // Configuration types (selective to avoid conflicts)
 export type {
