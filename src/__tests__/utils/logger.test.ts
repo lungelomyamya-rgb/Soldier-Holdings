@@ -2,6 +2,34 @@
  * Logger System Tests
  */
 
+// Mock the logger module to avoid import.meta.env issues
+jest.mock('../../utils/logger', () => ({
+  LogLevel: {
+    DEBUG: 0,
+    INFO: 1,
+    WARN: 2,
+    ERROR: 3,
+    FATAL: 4,
+  },
+  logger: {
+    debug: jest.fn(),
+    info: jest.fn(),
+    warn: jest.fn(),
+    error: jest.fn(),
+    fatal: jest.fn(),
+    performance: jest.fn(),
+    setCorrelationContext: jest.fn(),
+    clearCorrelationContext: jest.fn(),
+    generateCorrelationId: jest.fn(() => `test-correlation-${Date.now()}-${Math.random()}`),
+    getCorrelationContext: jest.fn(() => ({
+      correlationId: 'test-correlation-id',
+      userId: 'test-user',
+      sessionId: 'test-session',
+    })),
+  },
+  CorrelationContext: {},
+}));
+
 import { logger, LogLevel, CorrelationContext } from '../../utils/logger';
 
 describe('Logger', () => {
