@@ -1,13 +1,18 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  setupFiles: ['<rootDir>/src/__mocks__/globalSetup.js'],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^import.meta$': '<rootDir>/src/__mocks__/importMeta.js',
   },
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.ts$': ['<rootDir>/src/__mocks__/importMetaTransformer.js', {
+      diagnostics: {
+        ignoreCodes: [151001] // Ignore import.meta warnings
+      }
+    }],
   },
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.(ts|tsx|js|mjs)',
