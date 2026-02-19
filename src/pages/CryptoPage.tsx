@@ -5,10 +5,11 @@
  * and crypto rail forensic analysis
  */
 
+import React from 'react';
 import PulseCard from '../components/PulseCard';
 import TransactionFeed from '../components/TransactionFeed';
-import React from 'react';
 import { CryptoPageProps, Transaction } from '../types/index';
+import styles from '../styles/PulseCard.module.css';
 
 
 const CryptoPage = ({ transactions, cryptoTotal }: CryptoPageProps) => {
@@ -21,7 +22,7 @@ const CryptoPage = ({ transactions, cryptoTotal }: CryptoPageProps) => {
                 <p>Cryptocurrency transaction monitoring and forensic analysis</p>
             </header>
             
-            <div className="pulse-cards">
+            <div className={styles.pulseCardsContainer}>
                 <PulseCard
                     type="crypto"
                     amount={cryptoTotal}

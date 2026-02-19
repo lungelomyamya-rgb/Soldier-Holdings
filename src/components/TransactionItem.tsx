@@ -4,10 +4,14 @@
  * Displays individual transaction details with proper accessibility
  * Supports different transaction types and statuses
  * Optimized with React.memo and useMemo for performance
+ * Uses UI primitives and CSS modules for consistent styling
  */
-
 import React, { useMemo } from 'react';
+import Box from './ui/Box';
+import Flex from './ui/Flex';
+import Typography from './ui/Typography';
 import { TransactionItemProps } from '../types/index';
+import styles from '../styles/TransactionItem.module.css';
 
 // Memoize icon mapping to prevent recreation on every render
 const ICON_MAP: Record<'ZAR' | 'BTC' | 'ETH', string> = {
@@ -47,24 +51,35 @@ const TransactionItem: React.FC<TransactionItemProps> = React.memo(({ transactio
   // Memoize spinner icon for scanning status
   const spinnerIcon = useMemo(() => {
     return transaction.status === 'scanning' ? (
-      <i className='fas fa-spinner fa-spin pulse' aria-hidden='true' />
+      <i className="fas fa-spinner fa-spin pulse" aria-hidden="true" />
     ) : null;
   }, [transaction.status]);
 
   return (
-    <div className='transaction-item' role='article' aria-label={ariaLabel}>
-      <div className={transactionTypeClass}>
-        <i className={`fab fa-${iconClass}`} aria-hidden='true' />
-      </div>
-      <div className='tx-details'>
-        <div className='tx-amount'>{formattedAmount}</div>
-        <div className='tx-from'>{transaction.from}</div>
-      </div>
-      <div className={statusClass}>
+    <Box className={styles.transactionItem} role="article" aria-label={ariaLabel}>
+      <Flex className={styles.iconContainer}>
+        <i className={`fab fa-${iconClass} ${styles.icon}`} aria-hidden="true" />
+      </Flex>
+      
+      <Box className={styles.details}>
+        <Typography variant="h4" className={styles.amount}>
+          {formattedAmount}
+        </Typography>
+        
+        <Flex className={styles.addresses}>
+          <Typography variant="body2" className={styles.fromAddress}>
+            {transaction.from}
+          </Typography>
+        </Flex>
+      </Box>
+      
+      <Flex className={styles.statusContainer}>
         {spinnerIcon}
-        <span>{transaction.statusText}</span>
-      </div>
-    </div>
+        <Typography variant="body2" className={statusClass}>
+          {transaction.statusText}
+        </Typography>
+      </Flex>
+    </Box>
   );
 });
 

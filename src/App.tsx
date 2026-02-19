@@ -7,6 +7,7 @@
 
 import React from 'react';
 import Sidebar from './components/Sidebar';
+import DesktopNavbar from './components/DesktopNavbar';
 import UserMessages from './components/UserMessages';
 import useUIStore from './store/uiStore';
 import useDataStore from './store/dataStore';
@@ -29,7 +30,7 @@ const App = () => {
   // Close mobile menu when clicking outside
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const sidebar = document.querySelector('.sidebar') as HTMLElement | null;
+      const sidebar = document.querySelector('[data-sidebar-open="true"]') as HTMLElement | null;
       const toggle = document.querySelector('.mobile-menu-toggle') as HTMLElement | null;
 
       if (
@@ -133,6 +134,10 @@ const App = () => {
 
   return (
     <div className='app-container'>
+      {/* Desktop Navbar - Only visible on desktop */}
+      <DesktopNavbar />
+
+      {/* Mobile Menu Toggle - Only visible on mobile */}
       <button
         className='mobile-menu-toggle'
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -140,6 +145,15 @@ const App = () => {
       >
         <i className='fas fa-bars' />
       </button>
+
+      {/* Mobile Backdrop */}
+      {mobileMenuOpen && (
+        <div 
+          className='mobile-backdrop'
+          onClick={() => setMobileMenuOpen(false)}
+          aria-label='Close navigation menu'
+        />
+      )}
 
       <Sidebar
         activeNav={activeNav}

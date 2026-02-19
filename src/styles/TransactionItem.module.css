@@ -1,0 +1,156 @@
+/* Transaction Item Component Styles */
+
+.transactionItem {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  width: 100%; /* Prevent width changes */
+  min-width: 0; /* Allow flex shrinking */
+}
+
+.transactionItem:hover {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.details {
+  flex: 1;
+  min-width: 0;
+}
+
+.amount {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+.addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fromAddress {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0; /* Allow flex shrinking */
+  flex: 1; /* Take remaining space */
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  flex-shrink: 0;
+}
+
+/* Transaction type specific styles */
+.transactionItem:has(.icon) .iconContainer {
+  background: var(--primary-50);
+}
+
+.transactionItem:has(.fa-dollar-sign) .iconContainer {
+  background: var(--success-50);
+}
+
+.transactionItem:has(.fa-bitcoin) .iconContainer {
+  background: var(--warning-50);
+}
+
+.transactionItem:has(.fa-ethereum) .iconContainer {
+  background: var(--info-50);
+}
+
+/* Status styles */
+.tx-status {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.tx-status.completed {
+  background: var(--success-100);
+  color: var(--success-700);
+}
+
+.tx-status.pending {
+  background: var(--warning-100);
+  color: var(--warning-700);
+}
+
+.tx-status.scanning {
+  background: var(--info-100);
+  color: var(--info-700);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .transactionItem {
+    padding: 0.75rem;
+  }
+  
+  .iconContainer {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.75rem;
+  }
+  
+  .amount {
+    font-size: 1rem;
+  }
+  
+  .fromAddress {
+    font-size: 0.8rem;
+  }
+  
+  .statusContainer {
+    margin-left: 0.75rem;
+  }
+}
+
+/* Animation for pulse effect */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

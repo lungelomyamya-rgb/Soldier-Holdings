@@ -3,13 +3,18 @@
  * 
  * Desktop-specific styles for larger screens (992px and above)
  * Optimized for mouse interactions and spacious layouts
+ * 
+ * Desktop: 1440 x 900 px
+ * Safe Content Width: 1140 px to 1200 px
+ * Header/Nav: 60-80px consistent height
+ * Hero Section: 600-800px for primary CTA
  */
 
 /* ===== DESKTOP NAVBAR ===== */
 @media (min-width: 992px) {
   .desktop-navbar {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     padding: var(--space-4) var(--space-8);
     background: var(--glass-bg);
@@ -17,9 +22,32 @@
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--glass-border);
     box-shadow: var(--shadow-md);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: var(--z-sticky);
+    min-height: 70px;
+    max-height: 80px;
+    width: 100%;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  /* Hide sidebar navigation container on desktop */
+  aside[class*="sidebar"] {
+    display: none;
+  }
+
+  /* Also hide any sidebar with navContainer class */
+  [class*="navContainer"] {
+    display: none;
+  }
+
+  .main-content {
+    padding-top: var(--space-20);
   }
 
   .navbar-logo {
@@ -28,6 +56,8 @@
     color: var(--primary);
     text-decoration: none;
     letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
   }
 
   .navbar-nav {
@@ -44,6 +74,8 @@
     border-radius: var(--radius-lg);
     transition: var(--transition-fast);
     position: relative;
+    display: flex;
+    align-items: center;
   }
 
   .navbar-nav-item:hover {
@@ -56,17 +88,22 @@
     color: var(--text-inverse);
   }
 
-  .mobile-menu-toggle {
+  .sidebar {
     display: none;
   }
 
-  .sidebar {
+  .mobile-menu-toggle {
     display: none;
   }
 }
 
-/* Desktops (1200px to 1399px) */
+/* Desktops (1200px to 1399px) - Safe Content Width: 1140px */
 @media (min-width: 1200px) and (max-width: 1399px) {
+  .main-content {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -178,6 +215,9 @@
   .main-content {
     margin-left: 0;
     padding: var(--space-8);
+    width: 100%; /* Prevent width changes */
+    min-width: 0; /* Allow flex shrinking */
+    box-sizing: border-box; /* Include padding in width */
   }
 
   .feed-header {

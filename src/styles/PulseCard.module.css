@@ -1,0 +1,223 @@
+/* src/styles/PulseCard.module.css */
+.pulseCard {
+  --card-padding-x: 1.5rem;
+  --card-padding-y: 1rem;
+  --card-bg: var(--primary-50);
+  --card-border: var(--primary);
+  --icon-bg: var(--primary-100);
+  --icon-color: var(--primary-700);
+  --badge-bg: var(--primary-100);
+  --badge-color: var(--primary-700);
+  
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  height: 100%;
+  padding: var(--card-padding-y) var(--card-padding-x) var(--card-padding-y) calc(var(--card-padding-x) + 0.5rem);
+  background-color: var(--card-bg);
+  border-left: 4px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card variants */
+.pulseCard.fiat {
+  --card-bg: var(--primary-50);
+  --card-border: var(--primary);
+  --icon-bg: var(--primary-100);
+  --icon-color: var(--primary-700);
+  --badge-bg: var(--primary-100);
+  --badge-color: var(--primary-700);
+}
+
+.pulseCard.crypto {
+  --card-bg: var(--blue-50);
+  --card-border: var(--secondary);
+  --icon-bg: var(--blue-100);
+  --icon-color: var(--blue-700);
+  --badge-bg: var(--blue-100);
+  --badge-color: var(--blue-700);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Icon */
+.iconContainer {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  background-color: var(--icon-bg);
+  color: var(--icon-color);
+}
+
+/* Title */
+.title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Badge */
+.badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+  background-color: var(--badge-bg);
+  color: var(--badge-color);
+}
+
+/* Amount */
+.amount {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0.5rem 0 1rem 0;
+}
+
+/* Stats */
+.statsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.statItem {
+  padding: 0.5rem;
+  flex: 1;
+  min-width: 120px;
+}
+
+.stat {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+/* Typography */
+.pulseCard .title {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pulseCard .amount {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0.5rem 0 1rem 0;
+}
+
+/* Stats */
+.pulseCard .stat {
+  font-size: 0.8125rem; /* 13px */
+  line-height: 1.4;
+}
+
+.pulseCard .statLabel {
+  font-size: 0.75rem; /* 12px */
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+/* Badge */
+.pulseCard .badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.pulseCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pulseCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.pulseCard:hover::before {
+  opacity: 1;
+}
+
+/* Touch device adjustments */
+@media (hover: none) {
+  .pulseCard:hover {
+    transform: none;
+  }
+}
+
+/* Container styles - to be used in the parent component */
+.pulseCardsContainer {
+  display: grid;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pulseCard {
+    --card-padding-x: 1.25rem;
+    --card-padding-y: 0.875rem;
+  }
+  
+  .title {
+    font-size: 0.8125rem; /* 13px */
+  }
+  
+  .amount {
+    font-size: 1.125rem; /* 18px */
+  }
+}
+
+/* Adjust minimum card width on smaller screens */
+@media (max-width: 480px) {
+  .pulseCardsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .pulseCard {
+    --card-padding-x: 1rem;
+  }
+  
+  .statItem {
+    min-width: 100px;
+  }
+}

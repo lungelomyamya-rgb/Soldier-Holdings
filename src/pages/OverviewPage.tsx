@@ -12,6 +12,7 @@ import StatsGrid from '../components/StatsGrid';
 import TransactionFeed from '../components/TransactionFeed';
 import useDataStore from '../store/dataStore';
 import useUIStore from '../store/uiStore';
+import styles from '../styles/PulseCard.module.css';
 
 const OverviewPage: React.FC = React.memo(() => {
   // Direct access to the specific state this component needs
@@ -40,7 +41,7 @@ const OverviewPage: React.FC = React.memo(() => {
         <p>Real-time political funding monitoring and compliance enforcement</p>
       </header>
       
-      <div className="pulse-cards">
+      <div className={styles.pulseCardsContainer}>
         <PulseCard
           type="fiat"
           amount={fiatTotal}

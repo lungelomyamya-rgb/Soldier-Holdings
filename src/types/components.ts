@@ -30,6 +30,13 @@ export interface SidebarProps extends BaseComponentProps {
   setMobileMenuOpen: (open: boolean) => void;
 }
 
+export interface NavItem {
+  id: string;
+  icon: string;
+  label: string;
+  path: string;
+}
+
 export interface TransactionItemProps extends BaseComponentProps {
   transaction: Transaction;
 }
@@ -67,6 +74,24 @@ export interface AnalyticsPageProps extends BaseComponentProps {
   // Add analytics-specific props as needed
 }
 
-export interface SettingsPageProps extends BaseComponentProps {
-  // Add settings-specific props as needed
+export interface LoggingProviderProps extends BaseComponentProps {
+  children: ReactNode;
+  userId?: string;
+  _enableDebugLogging?: boolean;
+  _remoteEndpoint?: string;
+}
+
+export interface LoggingErrorBoundaryProps extends BaseComponentProps {
+  children: ReactNode;
+  fallback?: React.ComponentType<{ error: Error; resetError: () => void }>;
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
+}
+
+export interface LoggingErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
+
+export interface UserMessagesProps extends BaseComponentProps {
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 }

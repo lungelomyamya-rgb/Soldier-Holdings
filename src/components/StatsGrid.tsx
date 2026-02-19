@@ -1,48 +1,62 @@
 /**
  * Stats Grid Component
- *
+ * 
  * Displays key performance metrics and compliance indicators
- * Supports dynamic data and trend analysis
+ * Uses the new UI primitives and CSS modules for styling
  * Optimized with React.memo and useMemo for performance
  */
 
 import React, { useMemo } from 'react';
 import { Stat } from '../types';
+import Box from './ui/Box';
+import Flex from './ui/Flex';
+import Typography from './ui/Typography';
+import styles from '../styles/StatsGrid.module.css';
 
 interface StatsGridProps {
-  // Optional props for future dynamic data
   stats?: Stat[];
   loading?: boolean;
+  className?: string;
 }
 
-// Memoized stat card component to prevent unnecessary re-renders
-const StatCard: React.FC<{ stat: Stat; index: number }> = React.memo(({ stat, index }) => {
-  const arrowIcon = useMemo(() => {
-    return stat.change?.type === 'increase' ? 'up' : 'down';
-  }, [stat.change?.type]);
-
-  const changeClass = useMemo(() => {
-    return stat.change ? `stat-change ${stat.change.type}` : '';
-  }, [stat.change]);
+const StatCard: React.FC<{ stat: Stat }> = React.memo(({ stat }) => {
+  const changeType = stat.change?.type || 'neutral';
+  const arrowIcon = changeType === 'increase' ? 'arrow-up' : 'arrow-down';
 
   return (
-    <div key={index} className='stat-card card'>
-      <div className='stat-label'>{stat.label}</div>
-      <div className='stat-value'>{stat.value}</div>
+    <Box className={styles.statCard}>
+      <Typography variant="body2" className={styles.statLabel}>
+        {stat.label}
+      </Typography>
+      <Typography variant="h4" className={styles.statValue}>
+        {stat.value}
+      </Typography>
       {stat.change && (
-        <div className={changeClass}>
-          <i className={`fas fa-arrow-${arrowIcon}`} aria-hidden='true' />
+        <Flex alignItems="center" gap={1} className={`${styles.statChange} ${styles[changeType]}`}>
+          <i className={`fas fa-${arrowIcon}`} aria-hidden="true" />
           <span>{stat.change.text}</span>
-        </div>
+        </Flex>
       )}
-    </div>
+    </Box>
   );
 });
 
 StatCard.displayName = 'StatCard';
 
-const StatsGrid: React.FC<StatsGridProps> = React.memo(({ stats, loading = false }) => {
-  // Memoize stats data to prevent unnecessary recalculations
+const SkeletonLoader: React.FC = React.memo(() => (
+  <Box className={styles.loading}>
+    {Array.from({ length: 4 }).map((_, index) => (
+      <Box key={index} className={styles.skeletonCard}>
+        <Box className={styles.skeletonLine} />
+        <Box className={`${styles.skeletonLine} ${styles.skeletonLineShort}`} />
+      </Box>
+    ))}
+  </Box>
+));
+
+SkeletonLoader.displayName = 'SkeletonLoader';
+
+const StatsGrid: React.FC<StatsGridProps> = React.memo(({ stats, loading = false, className = '' }) => {
   const displayStats = useMemo(() => {
     if (stats) return stats;
 
@@ -71,38 +85,22 @@ const StatsGrid: React.FC<StatsGridProps> = React.memo(({ stats, loading = false
     ];
   }, [stats]);
 
-  // Memoize loading state to prevent unnecessary re-renders
-  const loadingContent = useMemo(() => {
-    if (!loading) return null;
-
-    return (
-      <div className='stats-grid loading'>
-        {Array.from({ length: 4 }, (_, index) => (
-          <div key={index} className='stat-card card skeleton'>
-            <div className='skeleton-line' />
-            <div className='skeleton-line' />
-          </div>
-        ))}
-      </div>
-    );
-  }, [loading]);
-
   if (loading) {
-    return loadingContent;
+    return <SkeletonLoader />;
   }
 
   return (
-    <div className='stats-grid'>
+    <Box className={`${styles.statsGrid} ${className}`.trim()}>
       {displayStats.map((stat, index) => (
-        <StatCard key={`${stat.label}-${index}`} stat={stat} index={index} />
+        <StatCard key={`${stat.label}-${index}`} stat={stat} />
       ))}
-    </div>
+    </Box>
   );
 });
 
 StatsGrid.displayName = 'StatsGrid';
 
+export default StatsGrid;
+
 // Attach to window for global access
 window.StatsGrid = StatsGrid;
-
-export default StatsGrid;

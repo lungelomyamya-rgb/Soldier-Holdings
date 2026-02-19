@@ -18,8 +18,8 @@ export * from './api';
 // Store and state management
 export * from './store';
 
-// Error handling types
-export * from './errors';
+// Logging and monitoring types
+export * from './logging';
 
 // Configuration types (selective to avoid conflicts)
 export type {

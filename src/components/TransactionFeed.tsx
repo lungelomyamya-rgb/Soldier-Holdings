@@ -1,8 +1,12 @@
 import React, { useMemo, useCallback } from 'react';
-import TransactionItem from './TransactionItem';
 import { TransactionFeedProps } from '../types/index';
 import { useComponentPerformance, useUserInteraction } from '../hooks/useMonitoring';
 import { useLogging } from './LoggingProvider';
+import Box from './ui/Box';
+import Flex from './ui/Flex';
+import Typography from './ui/Typography';
+import TransactionItem from './TransactionItem';
+import styles from '../styles/TransactionFeed.module.css';
 
 const TransactionFeed: React.FC<TransactionFeedProps> = React.memo(
   ({ transactions, filter, onFilterChange }) => {
@@ -68,9 +72,9 @@ const TransactionFeed: React.FC<TransactionFeedProps> = React.memo(
         logInfo('No transactions found for current filter', { filter });
 
         return (
-          <div className='empty-state'>
-            <p>No transactions found for filter: {filter}</p>
-          </div>
+          <Box className={styles.emptyState}>
+            <Typography variant="body2">No transactions found for filter: {filter}</Typography>
+          </Box>
         );
       }
 
@@ -79,30 +83,39 @@ const TransactionFeed: React.FC<TransactionFeedProps> = React.memo(
         filter,
       });
 
-      return filteredTransactions.map((transaction, index) => (
-        <TransactionItem key={`tx-${String(transaction.id || index)}`} transaction={transaction} />
-      ));
+      return (
+        <Box as="ul" className={styles.transactionList}>
+          {filteredTransactions.map((transaction, index) => (
+            <TransactionItem 
+              key={`tx-${String(transaction.id || index)}`} 
+              transaction={transaction} 
+            />
+          ))}
+        </Box>
+      );
     }, [filteredTransactions, filter, logInfo, logDebug]);
 
     return (
-      <div className='transaction-feed card'>
-        <div className='feed-header'>
-          <h3>Identity-Wallet Live Feed</h3>
-          <div className='feed-filter' role='group' aria-label='Filter transactions'>
+      <Box className={styles.transactionFeed}>
+        <Box className={styles.feedHeader}>
+          <Typography variant="h3" className={styles.feedTitle}>
+            Identity-Wallet Live Feed
+          </Typography>
+          <Flex as="div" role="group" aria-label="Filter transactions" className={styles.filterGroup}>
             {filterOptions.map(type => (
               <button
-                key={type}
-                className={`filter-btn ${filter === type ? 'active' : ''}`}
+                className={`${styles.filterButton} ${filter === type ? 
+                  styles.filterButtonActive : ''}`}
                 onClick={() => handleFilterChange(type)}
                 aria-pressed={filter === type}
               >
                 {type.toUpperCase()}
               </button>
             ))}
-          </div>
-        </div>
-        <div className='transaction-list'>{transactionList}</div>
-      </div>
+          </Flex>
+        </Box>
+        {transactionList}
+      </Box>
     );
   }
 );

@@ -7,27 +7,13 @@
 import React, { useEffect, createContext, useContext, ReactNode } from 'react';
 import { logger, CorrelationContext } from '../utils/logger';
 import { monitoring } from '../utils/monitoring';
-
-interface LoggingContextType {
-  correlationId: string;
-  userId?: string;
-  sessionId?: string;
-  logDebug: (message: string, metadata?: Record<string, unknown>) => void;
-  logInfo: (message: string, metadata?: Record<string, unknown>) => void;
-  logWarn: (message: string, metadata?: Record<string, unknown>) => void;
-  logError: (message: string, error?: Error, metadata?: Record<string, unknown>) => void;
-  logUserAction: (action: string, metadata?: Record<string, unknown>) => void;
-  updateCorrelationContext: (context: Partial<CorrelationContext>) => void;
-}
+import Box from './ui/Box';
+import Flex from './ui/Flex';
+import Typography from './ui/Typography';
+import { LoggingContextType, LoggingProviderProps, LoggingErrorBoundaryProps, LoggingErrorBoundaryState } from '../types/index';
+import styles from '../styles/LoggingErrorBoundary.module.css';
 
 const LoggingContext = createContext<LoggingContextType | null>(null);
-
-interface LoggingProviderProps {
-  children: ReactNode;
-  userId?: string;
-  _enableDebugLogging?: boolean;
-  _remoteEndpoint?: string;
-}
 
 export const LoggingProvider: React.FC<LoggingProviderProps> = ({ children, userId }) => {
   const [correlationContext, setCorrelationContext] = React.useState<CorrelationContext>(() => {
@@ -203,16 +189,6 @@ export function withLogging<P extends object>(
 /**
  * Error boundary with logging
  */
-interface LoggingErrorBoundaryProps {
-  children: ReactNode;
-  fallback?: React.ComponentType<{ error: Error; resetError: () => void }>;
-  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
-}
-
-interface LoggingErrorBoundaryState {
-  hasError: boolean;
-  error?: Error;
-}
 
 export class LoggingErrorBoundary extends React.Component<
   LoggingErrorBoundaryProps,
@@ -265,23 +241,28 @@ export class LoggingErrorBoundary extends React.Component<
       }
 
       return (
-        <div
-          style={{
-            padding: '20px',
-            border: '1px solid #ff6b6b',
-            borderRadius: '4px',
-            margin: '20px',
-          }}
-        >
-          <h2>Something went wrong</h2>
-          <details style={{ whiteSpace: 'pre-wrap' }}>
-            <summary>Error details</summary>
-            {this.state.error?.stack}
-          </details>
-          <button onClick={this.resetError} style={{ marginTop: '10px' }}>
-            Try again
-          </button>
-        </div>
+        <Box className={styles.errorContainer}>
+          <Flex className={styles.errorContent} direction="column">
+            <Typography variant="h2" className={styles.errorTitle}>
+              Something went wrong
+            </Typography>
+
+            <Box className={styles.errorDetails}>
+              <Typography variant="subtitle2" className={styles.errorSummary}>
+                Error details
+              </Typography>
+              <Typography variant="body2" className={styles.errorStack} component="pre">
+                {this.state.error?.stack}
+              </Typography>
+            </Box>
+
+            <button onClick={this.resetError} className={styles.errorButton}>
+              <Typography variant="body2">
+                Try again
+              </Typography>
+            </button>
+          </Flex>
+        </Box>
       );
     }
 

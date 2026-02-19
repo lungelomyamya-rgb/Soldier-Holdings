@@ -3,25 +3,24 @@
  *
  * Responsive styles for mobile and tablet devices
  * Media queries for max-width breakpoints
+ * 
+ * Mobile Sweet Spot: 375 x 812 px (19.5:9 aspect ratio)
+ * Header/Nav: 60-80px consistent height
+ * Hero Section: 600-800px for primary CTA
  */
 
+/* Mobile Sweet Spot Enhancement - 375 x 812 px */
+@media (min-width: 375px) and (max-width: 375px) {
+  .app-container {
+    max-width: 375px;
+    margin: 0 auto;
+  }
+}
+
 /* ===== MOBILE SIDEBAR (MOBILE-ONLY COMPONENT) ===== */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100vh;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-right: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-lg);
-  z-index: var(--z-sticky);
-  transition: var(--transition-normal);
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gray-400) transparent;
+/* Sidebar styles moved to Sidebar.module.css to avoid conflicts */
+.desktop-navbar {
+  display: none;
 }
 
 /* ===== RESPONSIVE DESIGN & MOBILE LAYOUT ===== */
@@ -63,14 +62,28 @@
 
 /* Mobile (max-width: 768px) */
 /* Mobile Sidebar */
-.sidebar {
-  transform: translateX(-100%);
-  width: 280px;
-  box-shadow: var(--shadow-2xl);
+/* Sidebar styles moved to Sidebar.module.css to avoid conflicts */
+
+/* Hide mobile elements when sidebar is open */
+.app-container:has([data-sidebar-open="true"]) .mobile-menu-toggle,
+.app-container:has([data-sidebar-open="true"]) .mobile-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  pointer-events: none;
 }
 
-.sidebar.mobile-open {
-  transform: translateX(0);
+/* Close sidebar when clicking outside navigation */
+.app-container:has([data-sidebar-open="true"]) .main-content {
+  cursor: pointer;
+}
+
+.app-container:has([data-sidebar-open="true"]) .main-content * {
+  pointer-events: none;
+}
+
+.app-container:has([data-sidebar-open="true"]) .main-content .nav-link {
+  pointer-events: auto;
 }
 
 .main-content {
@@ -99,8 +112,7 @@
 }
 
 /* Hide menu toggle when sidebar is open */
-.sidebar.mobile-open ~ .main-content .mobile-menu-toggle,
-.app-container:has(.sidebar.mobile-open) .mobile-menu-toggle {
+.app-container:has(.sidebar[class*="mobileOpen"]) .mobile-menu-toggle {
   opacity: 0;
   visibility: hidden;
   transform: scale(0.8);
@@ -391,7 +403,7 @@
 .compliance-metric {
   padding: var(--space-2);
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-1);
 }
 
@@ -435,7 +447,7 @@
 .report-item {
   padding: var(--space-2);
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-2);
 }
 
@@ -475,7 +487,7 @@
 .risk-level {
   padding: var(--space-3);
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-2);
 }
 

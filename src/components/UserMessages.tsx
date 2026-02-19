@@ -3,18 +3,18 @@
  *
  * Displays user notifications (errors, warnings, success, info)
  * Provides consistent UI for all user feedback
+ * Uses UI primitives and CSS modules for consistent styling
  */
 
 import React from 'react';
 import { useUserMessages } from '../hooks/useErrorHandler';
 import { UserMessageAction } from '../interfaces/IErrorHandlerService';
 import { UserMessage } from '../types/errors';
-import '../styles/UserMessages.css';
-
-interface UserMessagesProps {
-  className?: string;
-  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-}
+import Box from './ui/Box';
+import Flex from './ui/Flex';
+import Typography from './ui/Typography';
+import { UserMessagesProps } from '../types/index';
+import styles from '../styles/UserMessages.module.css';
 
 const UserMessages: React.FC<UserMessagesProps> = ({ className = '', position = 'top-right' }) => {
   const { messages, clearMessages } = useUserMessages();
@@ -45,53 +45,65 @@ const UserMessages: React.FC<UserMessagesProps> = ({ className = '', position = 
   };
 
   return (
-    <div className={`user-messages user-messages--${position} ${className}`}>
+    <Box className={`${styles.userMessages} ${styles[`position${position.charAt(0).toUpperCase() + position.slice(1)}`]} ${className}`}>
       {messages.map((message: UserMessage) => (
-        <div
+        <Box
           key={message.id}
-          className={`user-message user-message--${message.type}`}
-          role='alert'
-          aria-live='polite'
+          className={`${styles.userMessage} ${styles[`type${message.type.charAt(0).toUpperCase() + message.type.slice(1)}`]}`}
+          role="alert"
+          aria-live="polite"
         >
-          <div className='user-message__content'>
-            <div className='user-message__icon'>
-              <i className={getIcon(message.type)} />
-            </div>
-            <div className='user-message__text'>
-              <div className='user-message__title'>{message.title}</div>
-              <div className='user-message__message'>{message.message}</div>
-            </div>
+          <Flex className={styles.messageContent}>
+            <Flex className={styles.iconContainer}>
+              <i className={`${getIcon(message.type)} ${styles.icon}`} />
+            </Flex>
+
+            <Box className={styles.textContent}>
+              <Typography variant="h4" className={styles.title}>
+                {message.title}
+              </Typography>
+              <Typography variant="body2" className={styles.message}>
+                {message.message}
+              </Typography>
+            </Box>
+
             {!message.persistent && (
               <button
-                className='user-message__close'
+                className={styles.closeButton}
                 onClick={() => clearMessages()}
-                aria-label='Close message'
+                aria-label="Close message"
               >
-                <i className='fas fa-times' />
+                <i className="fas fa-times" />
               </button>
             )}
-          </div>
+          </Flex>
+
           {message.actions && message.actions.length > 0 && (
-            <div className='user-message__actions'>
+            <Flex className={styles.actionsContainer}>
               {message.actions.map((action: UserMessageAction, index: number) => (
                 <button
                   key={index}
-                  className={`user-message__action ${action.primary ? 'primary' : ''}`}
+                  className={`${styles.actionButton} ${action.primary ? styles.primary : ''}`}
                   onClick={() => handleMessageClick(message.id, action.action)}
                 >
-                  {action.label}
+                  <Typography variant="body2">
+                    {action.label}
+                  </Typography>
                 </button>
               ))}
-            </div>
+            </Flex>
           )}
-        </div>
+        </Box>
       ))}
+
       {messages.length > 1 && (
-        <button className='user-messages__clear-all' onClick={clearMessages}>
-          Clear All
+        <button className={styles.clearAllButton} onClick={clearMessages}>
+          <Typography variant="body2">
+            Clear All
+          </Typography>
         </button>
       )}
-    </div>
+    </Box>
   );
 };
 

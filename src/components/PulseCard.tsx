@@ -2,12 +2,15 @@
  * Pulse Card Component
  *
  * Displays key metrics for fiat and crypto liquidity
- * Supports dynamic data binding and accessibility
- * Optimized with React.memo and useMemo for performance
+ * Uses the new UI primitives for consistent styling and behavior
  */
 
 import React, { useMemo } from 'react';
 import { PulseCardProps, Stat } from '../types';
+import Box from './ui/Box';
+import Flex from './ui/Flex';
+import Typography from './ui/Typography';
+import styles from '../styles/PulseCard.module.css';
 
 const PulseCard: React.FC<PulseCardProps> = React.memo(
   ({ type, amount, stats, badge, className, testId }) => {
@@ -16,18 +19,13 @@ const PulseCard: React.FC<PulseCardProps> = React.memo(
       const isFiat = type === 'fiat';
       return {
         isFiat,
-        cardClass: `pulse-card ${type} ${className || ''}`,
         icon: isFiat ? 'university' : 'bitcoin-sign',
         title: isFiat ? 'Fiat Liquidity' : 'Crypto Velocity',
         amountPrefix: isFiat ? 'R ' : '',
         amountSuffix: isFiat ? '' : ' BTC',
-        badgeStyle: {
-          background: isFiat ? undefined : 'rgba(52, 152, 219, 0.2)',
-          color: isFiat ? undefined : 'var(--crypto-blue)',
-        },
-        badgeClass: `pulse-badge ${!isFiat ? 'crypto-badge' : ''}`,
+        cardVariant: isFiat ? 'primary' : 'secondary',
       };
-    }, [type, className]);
+    }, [type]);
 
     // Memoize formatted amount
     const formattedAmount = useMemo(() => {
@@ -38,31 +36,37 @@ const PulseCard: React.FC<PulseCardProps> = React.memo(
       return `${typeConfig.amountPrefix}${formattedNumber}${typeConfig.amountSuffix}`;
     }, [amount, typeConfig.amountPrefix, typeConfig.amountSuffix, type]);
 
-    // Memoize stats rendering
-    const statsElements = useMemo(() => {
-      return stats.map((stat: Stat, index: number) => (
-        <div key={`${stat.label}-${index}`} className='pulse-stat'>
-          <div className='pulse-stat-label'>{stat.label}</div>
-          <div className='pulse-stat-value'>{stat.value}</div>
-        </div>
-      ));
-    }, [stats]);
-
     return (
-      <div className={typeConfig.cardClass} data-testid={testId}>
-        <div className='pulse-header'>
-          <div className='pulse-title'>
-            <div className='pulse-icon'>
-              <i className={`fas fa-${typeConfig.icon}`} aria-hidden='true' />
+      <div 
+        className={`${styles.pulseCard} ${typeConfig.isFiat ? styles.fiat : styles.crypto} ${className || ''}`}
+        data-testid={testId}
+      >
+        <div className={styles.header}>
+          <div className={styles.titleContainer}>
+            <div className={styles.iconContainer}>
+              <i className={`fas fa-${typeConfig.icon}`} aria-hidden="true" />
             </div>
-            <h3>{typeConfig.title}</h3>
+            <Typography className={styles.title}>
+              {typeConfig.title}
+            </Typography>
           </div>
-          <div className={typeConfig.badgeClass} style={typeConfig.badgeStyle}>
+          <div className={styles.badge}>
             {badge}
           </div>
         </div>
-        <div className='pulse-amount'>{formattedAmount}</div>
-        <div className='pulse-meta'>{statsElements}</div>
+
+        <Typography className={styles.amount}>
+          {formattedAmount}
+        </Typography>
+
+        <div className={styles.statsContainer}>
+          {stats.map((stat, index) => (
+            <div key={`${stat.label}-${index}`} className={styles.statItem}>
+              <div className={styles.statLabel}>{stat.label}</div>
+              <div className={styles.stat}>{stat.value}</div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

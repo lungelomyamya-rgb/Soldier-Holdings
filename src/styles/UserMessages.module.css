@@ -1,0 +1,230 @@
+/* User Messages Component Styles */
+
+.userMessages {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 400px;
+  pointer-events: none;
+}
+
+/* Position variants */
+.positionTop-right {
+  top: var(--space-4);
+  right: var(--space-4);
+}
+
+.positionTop-left {
+  top: var(--space-4);
+  left: var(--space-4);
+}
+
+.positionBottom-right {
+  bottom: var(--space-4);
+  right: var(--space-4);
+}
+
+.positionBottom-left {
+  bottom: var(--space-4);
+  left: var(--space-4);
+}
+
+/* Individual message styles */
+.userMessage {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  pointer-events: auto;
+  animation: slideIn 0.3s ease-out;
+  overflow: hidden;
+}
+
+.messageContent {
+  padding: var(--space-4);
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.iconContainer {
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 1.25rem;
+}
+
+.textContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-1) 0;
+  line-height: 1.3;
+}
+
+.message {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.closeButton:hover {
+  background: var(--color-bg-subtle);
+  color: var(--text-primary);
+}
+
+.actionsContainer {
+  padding: 0 var(--space-4) var(--space-4);
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.actionButton {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-subtle);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.actionButton:hover {
+  background: var(--color-bg-muted);
+  border-color: var(--color-border-hover);
+}
+
+.primary {
+  background: var(--primary);
+  color: var(--text-inverse);
+  border-color: var(--primary);
+}
+
+.primary:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.clearAllButton {
+  align-self: flex-start;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  margin-top: var(--space-2);
+}
+
+.clearAllButton:hover {
+  background: var(--color-bg-subtle);
+  color: var(--text-primary);
+}
+
+/* Message type colors */
+.typeError {
+  border-color: var(--danger-light);
+}
+
+.typeError .icon {
+  color: var(--danger);
+}
+
+.typeSuccess {
+  border-color: var(--success-light);
+}
+
+.typeSuccess .icon {
+  color: var(--success);
+}
+
+.typeWarning {
+  border-color: var(--warning-light);
+}
+
+.typeWarning .icon {
+  color: var(--warning);
+}
+
+.typeInfo {
+  border-color: var(--info-light);
+}
+
+.typeInfo .icon {
+  color: var(--info);
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.positionTop-left .userMessage,
+.positionBottom-left .userMessage {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .userMessages {
+    max-width: calc(100vw - var(--space-8));
+    left: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .positionTop-right,
+  .positionTop-left {
+    top: var(--space-2);
+  }
+
+  .positionBottom-right,
+  .positionBottom-left {
+    bottom: var(--space-2);
+  }
+}

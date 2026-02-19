@@ -5,10 +5,11 @@
  * and fiat rail compliance monitoring
  */
 
+import React from 'react';
 import PulseCard from '../components/PulseCard';
 import TransactionFeed from '../components/TransactionFeed';
-import React from 'react';
 import { FiatPageProps, Transaction } from '../types/index';
+import styles from '../styles/PulseCard.module.css';
 
 
 const FiatPage = ({ transactions, fiatTotal }: FiatPageProps) => {
@@ -21,7 +22,7 @@ const FiatPage = ({ transactions, fiatTotal }: FiatPageProps) => {
                 <p>Traditional currency transaction monitoring and compliance</p>
             </header>
             
-            <div className="pulse-cards">
+            <div className={styles.pulseCardsContainer}>
                 <PulseCard
                     type="fiat"
                     amount={fiatTotal}
