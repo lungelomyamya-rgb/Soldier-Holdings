@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom';
 
 // Polyfill for TextEncoder/TextDecoder for Jest environment
-import { TextEncoder } from 'util';
+import { TextEncoder, TextDecoder } from 'util';
 
-// @ts-ignore - TextDecoder polyfill for Jest
 global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder as any;
+global.TextDecoder = TextDecoder;
