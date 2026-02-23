@@ -8,10 +8,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
+  const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 
   return {
     plugins: [react()],
-    base: process.env.VITE_BASE_URL || '/',
+    base: isGitHubPages ? '/Soldier-Holdings/' : (process.env.VITE_BASE_URL || '/'),
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
