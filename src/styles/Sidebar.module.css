@@ -33,6 +33,9 @@
 .logoIcon {
   font-size: 1.25rem;
   color: var(--primary);
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .logoText {
@@ -143,7 +146,7 @@
   .sidebar {
     width: 280px;
   }
-  
+
   .navLink {
     padding: 0.875rem 1.5rem;
   }

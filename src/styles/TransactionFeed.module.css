@@ -117,14 +117,27 @@
   .feedHeader {
     padding: 1rem;
   }
-  
+
   .filterGroup {
     gap: 0.375rem;
   }
-  
+
   .filterButton {
     padding: 0.25rem 0.625rem;
     font-size: 0.75rem;
+  }
+
+  /* Override fixed dimensions for mobile */
+  .transactionFeed {
+    width: 100%; /* Full width on mobile */
+    max-height: 500px; /* Controlled height for mobile */
+    height: auto; /* Allow flexible height */
+    flex-shrink: 1; /* Allow shrinking */
+  }
+
+  .transactionList {
+    max-height: 400px; /* Specific height for scrolling area */
+    flex: none; /* Don't grow */
   }
 }
 
@@ -132,7 +145,7 @@
   .filterGroup {
     justify-content: space-between;
   }
-  
+
   .filterButton {
     flex: 1;
     text-align: center;
