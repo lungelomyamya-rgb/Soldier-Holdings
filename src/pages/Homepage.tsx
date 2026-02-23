@@ -241,7 +241,9 @@ const Homepage: React.FC = () => {
       {mobileMenuOpen && (
         <div className={styles.mobileSidebarOverlay} onClick={() => setMobileMenuOpen(false)}>
           <div className={styles.mobileSidebar} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.mobileSidebarClose} onClick={() => setMobileMenuOpen(false)}>
+            <button className={styles.mobileSidebarClose} 
+            onClick={() => setMobileMenuOpen(false)}
+            >
               <i className="fas fa-times"></i>
             </button>
             <div className={styles.mobileSidebarContent}>

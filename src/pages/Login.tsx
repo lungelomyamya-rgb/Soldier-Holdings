@@ -1,18 +1,11 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-=======
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserRole, useAuthStore } from '../store/authStore';
->>>>>>> origin/main
 import styles from '../styles/Login.module.css';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
-<<<<<<< HEAD
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -27,22 +20,12 @@ const Login: React.FC = () => {
     } else {
       setError('Invalid email or password. Please check the demo credentials.');
     }
-=======
-
-  const handleRoleSelect = (role: UserRole) => {
-    login(role, 'Demo User');
-    navigate('/dashboard');
->>>>>>> origin/main
   };
 
   return (
     <>
-<<<<<<< HEAD
       <div className={styles.loginPage}>
         <div className={styles.loginContainer}>
-=======
-      <div className={styles.loginContainer}>
->>>>>>> origin/main
         <div className={styles.loginHeader}>
           <div className={styles.logo}>
             <img src="/images/logo.png" alt="Soldier Holdings Logo" />
@@ -56,7 +39,6 @@ const Login: React.FC = () => {
           <span>Back to Homepage</span>
         </Link>
 
-<<<<<<< HEAD
         <h2>Login to Your Account</h2>
 
         <form onSubmit={handleSubmit} className={styles.loginForm}>
@@ -90,53 +72,11 @@ const Login: React.FC = () => {
             Login
           </button>
         </form>
-=======
-        <h2>Select Your Account Type</h2>
-
-        <div className={styles.roleSelector}>
-          <div className={styles.roleCard} onClick={() => handleRoleSelect('political')}>
-            <div className={styles.roleIcon}>
-              <i className="fas fa-users"></i>
-            </div>
-            <div className={styles.roleContent}>
-              <h3>Political Party</h3>
-              <div className={styles.roleSubtitle}>The Treasurer's View</div>
-              <p>Campaign Finance Officers: Efficiency and "Nights-Back" ease of use</p>
-            </div>
-            <i className={styles.roleArrow}></i>
-          </div>
-
-          <div className={`${styles.roleCard} ${styles.success}`} onClick={() => handleRoleSelect('regulator')}>
-            <div className={styles.roleIcon}>
-              <i className="fas fa-shield-alt"></i>
-            </div>
-            <div className={styles.roleContent}>
-              <h3>Regulatory Body</h3>
-              <div className={styles.roleSubtitle}>Regulator Command Centre</div>
-              <p>IEC / SSA: Compliance Auditors and State Security Analysts</p>
-            </div>
-            <i className={styles.roleArrow}></i>
-          </div>
-
-          <div className={`${styles.roleCard} ${styles.warning}`} onClick={() => handleRoleSelect('financial')}>
-            <div className={styles.roleIcon}>
-              <i className="fas fa-university"></i>
-            </div>
-            <div className={styles.roleContent}>
-              <h3>Financial Institution</h3>
-              <div className={styles.roleSubtitle}>Financial Gateway</div>
-              <p>Banks and payment processors: Dual-Rail transaction management</p>
-            </div>
-            <i className={styles.roleArrow}></i>
-          </div>
-        </div>
->>>>>>> origin/main
 
         <div className={styles.loginFooter}>
           <p>
             <i className="fas fa-lock"></i> Secure Authentication • AES-256 Encrypted
           </p>
-<<<<<<< HEAD
           <div className={styles.demoCredentials}>
             <h4>Demo Credentials:</h4>
             <div className={styles.credentialList}>
@@ -158,11 +98,6 @@ const Login: React.FC = () => {
             </div>
           </div>
         </div>
-=======
-          <p>
-            <strong>Demo Credentials:</strong> Click any role above to access the demo dashboard
-          </p>
->>>>>>> origin/main
         </div>
       </div>
     </>

@@ -9,6 +9,8 @@ import styles from '../styles/Sidebar.module.css';
 import { useAuthStore } from '../store/authStore';
 
 const Sidebar: React.FC<SidebarProps> = ({
+  activeNav,
+  onNavChange,
   mobileMenuOpen,
   setMobileMenuOpen,
 }) => {
@@ -60,13 +62,14 @@ const Sidebar: React.FC<SidebarProps> = ({
             <li key={item.id} className={styles.navItem}>
               <Link
                 to={item.path}
-                className={`${styles.navLink} ${location.pathname === item.path ? styles.active : ''}`}
+                className={`${styles.navLink} ${activeNav === item.id ? styles.active : ''}`}
                 onClick={() => {
+                  onNavChange(item.id);
                   if (setMobileMenuOpen) {
                     setMobileMenuOpen(false);
                   }
                 }}
-                aria-current={location.pathname === item.path ? 'page' : undefined}
+                aria-current={activeNav === item.id ? 'page' : undefined}
               >
                 <i className={`fas fa-${item.icon} ${styles.navIcon}`} aria-hidden='true' />
                 <Typography variant='body1' component='span'>

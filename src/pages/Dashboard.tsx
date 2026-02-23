@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import DesktopNavbar from '../components/DesktopNavbar';
 import UserMessages from '../components/UserMessages';
@@ -27,6 +27,37 @@ const Dashboard = () => {
 
   // Data State - automatically managed by middleware
   const { transactions, fiatTotal, cryptoTotal, loading, error, refetch } = useDataStore();
+
+  // Navigation
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Determine active nav based on current path
+  const getActiveNav = () => {
+    const path = location.pathname;
+    if (path === '/dashboard') return 'overview';
+    if (path === '/dashboard/fiat') return 'fiat';
+    if (path === '/dashboard/crypto') return 'crypto';
+    if (path === '/dashboard/compliance') return 'compliance';
+    if (path === '/dashboard/analytics') return 'analytics';
+    if (path === '/dashboard/settings') return 'settings';
+    return 'overview';
+  };
+
+  const activeNav = getActiveNav();
+
+  const handleNavChange = (navId: string) => {
+    const navMap: { [key: string]: string } = {
+      home: '/',
+      overview: '/dashboard',
+      fiat: '/dashboard/fiat',
+      crypto: '/dashboard/crypto',
+      compliance: '/dashboard/compliance',
+      analytics: '/dashboard/analytics',
+      settings: '/dashboard/settings',
+    };
+    navigate(navMap[navId] || '/dashboard');
+  };
 
   // Close mobile menu when clicking outside
   React.useEffect(() => {
@@ -139,6 +170,8 @@ const Dashboard = () => {
       )}
 
       <Sidebar
+        activeNav={activeNav}
+        onNavChange={handleNavChange}
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
       />
