@@ -37,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     >
       <Box className={styles.logo}>
         <Box className={styles.logoContent}>
-          <i className={`fas fa-shield-alt ${styles.logoIcon}`}></i>
+          <img src="/images/logo.png" alt="Soldier Holdings Logo" className={styles.logoIcon} />
           <Typography variant='h6' className={styles.logoText}>
             Soldier Holdings
           </Typography>
