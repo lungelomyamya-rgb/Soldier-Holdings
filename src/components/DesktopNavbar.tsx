@@ -14,19 +14,19 @@ const DesktopNavbar: React.FC = () => {
   ];
 
   return (
-    <nav className="desktop-navbar">
-      <div className="navbar-logo">
-        <i className="fas fa-shield-alt"></i>
+    <nav className='desktop-navbar'>
+      <div className='navbar-logo'>
+        <i className='fas fa-shield-alt'></i>
         Soldier Holdings
       </div>
 
-      <div className="navbar-nav">
-        {navItems.map((item) => (
+      <div className='navbar-nav'>
+        {navItems.map(item => (
           <a
             key={item.id}
-            href="#"
+            href='#'
             className={`navbar-nav-item ${activeNav === item.id ? 'active' : ''}`}
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               setActiveNav(item.id);
             }}

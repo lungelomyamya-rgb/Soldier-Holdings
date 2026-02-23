@@ -1,6 +1,6 @@
 /**
  * Error Handler Interface
- * 
+ *
  * Defines the contract for error handling services
  * Ensures consistent error management across the application
  */
@@ -53,11 +53,7 @@ export interface IErrorHandlerService {
    * @param context - Context for error logging
    * @param fallback - Fallback value on error
    */
-  handleAsync<T>(
-    operation: () => Promise<T>,
-    context: string,
-    fallback?: T
-  ): Promise<T>;
+  handleAsync<T>(operation: () => Promise<T>, context: string, fallback?: T): Promise<T>;
 
   /**
    * Handle synchronous operation with error catching
@@ -65,18 +61,14 @@ export interface IErrorHandlerService {
    * @param context - Context for error logging
    * @param fallback - Fallback value on error
    */
-  handleSync<T>(
-    operation: () => T,
-    context: string,
-    fallback?: T
-  ): T;
+  handleSync<T>(operation: () => T, context: string, fallback?: T): T;
 }
 
 export enum ErrorSeverity {
   LOW = 'low',
   MEDIUM = 'medium',
   HIGH = 'high',
-  CRITICAL = 'critical'
+  CRITICAL = 'critical',
 }
 
 export interface UserErrorOptions {

@@ -1,6 +1,6 @@
 /**
  * Core Transaction Types
- * 
+ *
  * Fundamental types for transaction data and operations
  */
 

@@ -228,3 +228,43 @@
     bottom: var(--space-2);
   }
 }
+
+/* Additional mobile adjustments for new layout */
+@media (max-width: 768px) {
+  .userMessages {
+    z-index: 1001; /* Ensure it appears above mobile layout changes */
+  }
+
+  .userMessage {
+    max-width: 100%;
+  }
+
+  .messageContent {
+    padding: var(--space-3);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0; /* Remove gap to avoid conflicts with justify-content */
+  }
+
+  .iconContainer {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-right: var(--space-2);
+  }
+
+  .icon {
+    font-size: 1rem;
+  }
+
+  .textContent {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .closeButton {
+    flex-shrink: 0;
+    margin-left: var(--space-2);
+  }
+}

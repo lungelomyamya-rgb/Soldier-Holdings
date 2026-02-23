@@ -1,6 +1,6 @@
 /**
  * Flex Component
- * 
+ *
  * A layout component that provides a flexible box layout with consistent spacing
  * and alignment utilities, built on top of CSS Flexbox
  * Extends the Box component to support all spacing utilities
@@ -12,9 +12,21 @@ import Box, { BoxProps } from './Box';
 
 type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 type FlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
-type JustifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
+type JustifyContent =
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly';
 type AlignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-type AlignContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
+type AlignContent =
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'space-between'
+  | 'space-around'
+  | 'stretch';
 
 export interface FlexProps extends Omit<BoxProps, 'as' | 'display'> {
   /** Flex direction */
@@ -93,7 +105,7 @@ const Flex = forwardRef<HTMLElement, FlexProps>(
   ) => {
     const classes = classNames(
       {
-        'flex': !inline,
+        flex: !inline,
         'inline-flex': inline,
         'w-full': fullWidth,
         'h-full': fullHeight,

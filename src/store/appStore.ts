@@ -1,6 +1,6 @@
 /**
  * Application Store
- * 
+ *
  * Manages application-wide state (loading, errors, global settings)
  * Handles cross-cutting concerns like loading states and error handling
  */
@@ -12,20 +12,20 @@ interface AppState {
   // Loading States
   loading: boolean;
   setLoading: (loading: boolean) => void;
-  
+
   // Error Handling
   error: string | null;
   setError: (error: string | null) => void;
   clearError: () => void;
-  
+
   // Application Status
   isOnline: boolean;
   setIsOnline: (online: boolean) => void;
-  
+
   // Global Settings
   autoRefresh: boolean;
   setAutoRefresh: (enabled: boolean) => void;
-  
+
   // Notifications
   notifications: Notification[];
   addNotification: (notification: Omit<Notification, 'id' | 'timestamp'>) => void;
@@ -47,24 +47,24 @@ const useAppStore = create<AppState>()(
     (set, get) => ({
       // Loading State
       loading: false,
-      setLoading: (loading) => set({ loading }),
-      
+      setLoading: loading => set({ loading }),
+
       // Error Handling
       error: null,
-      setError: (error) => set({ error }),
+      setError: error => set({ error }),
       clearError: () => set({ error: null }),
-      
+
       // Application Status
       isOnline: navigator.onLine,
-      setIsOnline: (isOnline) => set({ isOnline }),
-      
+      setIsOnline: isOnline => set({ isOnline }),
+
       // Global Settings
       autoRefresh: true,
-      setAutoRefresh: (autoRefresh) => set({ autoRefresh }),
-      
+      setAutoRefresh: autoRefresh => set({ autoRefresh }),
+
       // Notifications
       notifications: [],
-      addNotification: (notification) => {
+      addNotification: notification => {
         const id = crypto.randomUUID();
         const newNotification: Notification = {
           ...notification,
@@ -72,11 +72,11 @@ const useAppStore = create<AppState>()(
           timestamp: new Date(),
           autoClose: notification.autoClose ?? true,
         };
-        
-        set((state) => ({
-          notifications: [...state.notifications, newNotification]
+
+        set(state => ({
+          notifications: [...state.notifications, newNotification],
         }));
-        
+
         // Auto-close notification after 5 seconds
         if (newNotification.autoClose) {
           setTimeout(() => {
@@ -84,11 +84,12 @@ const useAppStore = create<AppState>()(
           }, 5000);
         }
       },
-      
-      removeNotification: (id) => set((state) => ({
-        notifications: state.notifications.filter(n => n.id !== id)
-      })),
-      
+
+      removeNotification: id =>
+        set(state => ({
+          notifications: state.notifications.filter(n => n.id !== id),
+        })),
+
       clearNotifications: () => set({ notifications: [] }),
     }),
     { name: 'app-store' }
@@ -100,7 +101,7 @@ if (typeof window !== 'undefined') {
   window.addEventListener('online', () => {
     useAppStore.getState().setIsOnline(true);
   });
-  
+
   window.addEventListener('offline', () => {
     useAppStore.getState().setIsOnline(false);
   });

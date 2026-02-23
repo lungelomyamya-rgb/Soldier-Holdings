@@ -1,6 +1,6 @@
 /**
  * Service Context Provider
- * 
+ *
  * Provides dependency injection through React Context
  * Enables services to be accessed throughout the component tree
  * Supports easy testing with mock providers
@@ -26,29 +26,27 @@ interface ServiceProviderProps {
 
 /**
  * Service Provider Component
- * 
+ *
  * Provides services to the component tree through React Context
  * Can accept custom services for testing or overrides
  */
-export const ServiceProvider: React.FC<ServiceProviderProps> = ({ 
-  children, 
+export const ServiceProvider: React.FC<ServiceProviderProps> = ({
+  children,
   dataService,
-  errorHandler
+  errorHandler,
 }) => {
   // Use provided services or get from container
-  const dataServiceInstance = dataService || serviceContainer.get<IDataService>(ServiceType.DataService);
-  const errorHandlerInstance = errorHandler || serviceContainer.get<IErrorHandlerService>(ServiceType.ErrorHandlerService);
+  const dataServiceInstance =
+    dataService || serviceContainer.get<IDataService>(ServiceType.DataService);
+  const errorHandlerInstance =
+    errorHandler || serviceContainer.get<IErrorHandlerService>(ServiceType.ErrorHandlerService);
 
   const contextValue: ServiceContextType = {
     dataService: dataServiceInstance,
     errorHandler: errorHandlerInstance,
   };
 
-  return (
-    <ServiceContext.Provider value={contextValue}>
-      {children}
-    </ServiceContext.Provider>
-  );
+  return <ServiceContext.Provider value={contextValue}>{children}</ServiceContext.Provider>;
 };
 
 /**
@@ -57,11 +55,11 @@ export const ServiceProvider: React.FC<ServiceProviderProps> = ({
  */
 export const useServices = (): ServiceContextType => {
   const context = useContext(ServiceContext);
-  
+
   if (!context) {
     throw new Error('useServices must be used within a ServiceProvider');
   }
-  
+
   return context;
 };
 

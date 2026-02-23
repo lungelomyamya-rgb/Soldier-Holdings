@@ -1,6 +1,6 @@
 /**
  * Test Data Service
- * 
+ *
  * Mock implementation for testing purposes
  * Provides predictable data and behavior for unit tests
  */
@@ -19,7 +19,7 @@ export class TestDataService implements IDataService {
       status: 'verified',
       statusText: 'Compliant',
       timestamp: new Date('2024-01-01'),
-      riskScore: 25
+      riskScore: 25,
     },
     {
       id: 2,
@@ -30,8 +30,8 @@ export class TestDataService implements IDataService {
       status: 'pending',
       statusText: 'Awaiting KYC',
       timestamp: new Date('2024-01-02'),
-      riskScore: 50
-    }
+      riskScore: 50,
+    },
   ];
 
   async getTransactions(): Promise<Transaction[]> {
@@ -40,9 +40,12 @@ export class TestDataService implements IDataService {
     return [...this.mockTransactions];
   }
 
-  async updateTransactionStatus(transactionId: number, newStatus: 'pending' | 'scanning' | 'verified' | 'rejected'): Promise<Transaction | undefined> {
+  async updateTransactionStatus(
+    transactionId: number,
+    newStatus: 'pending' | 'scanning' | 'verified' | 'rejected'
+  ): Promise<Transaction | undefined> {
     await new Promise(resolve => setTimeout(resolve, 5));
-    
+
     const transaction = this.mockTransactions.find(tx => tx.id === transactionId);
     if (transaction) {
       transaction.status = newStatus;
@@ -60,19 +63,19 @@ export class TestDataService implements IDataService {
 
   async addTransaction(transaction: Omit<Transaction, 'id'>): Promise<Transaction> {
     await new Promise(resolve => setTimeout(resolve, 5));
-    
+
     const newTransaction: Transaction = {
       ...transaction,
-      id: Math.max(...this.mockTransactions.map(tx => tx.id)) + 1
+      id: Math.max(...this.mockTransactions.map(tx => tx.id)) + 1,
     };
-    
+
     this.mockTransactions.push(newTransaction);
     return { ...newTransaction };
   }
 
   async deleteTransaction(transactionId: number): Promise<boolean> {
     await new Promise(resolve => setTimeout(resolve, 5));
-    
+
     const index = this.mockTransactions.findIndex(tx => tx.id === transactionId);
     if (index > -1) {
       this.mockTransactions.splice(index, 1);
@@ -83,10 +86,10 @@ export class TestDataService implements IDataService {
 
   private getStatusText(status: string): string {
     const statusMap: Record<string, string> = {
-      'pending': 'Awaiting KYC',
-      'scanning': 'Scanning Forensics...',
-      'verified': 'Compliant',
-      'rejected': 'Violation Detected'
+      pending: 'Awaiting KYC',
+      scanning: 'Scanning Forensics...',
+      verified: 'Compliant',
+      rejected: 'Violation Detected',
     };
     return statusMap[status] || 'Unknown';
   }

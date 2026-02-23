@@ -1,6 +1,6 @@
 /**
  * Error Handler Hook
- * 
+ *
  * Provides easy access to error handling functionality throughout the application
  * Integrates with the DI system for consistent error management
  */
@@ -8,12 +8,12 @@
 import { useContext, useCallback, useState, useEffect } from 'react';
 import ServiceContext from '../context/ServiceContext';
 import { IErrorHandlerService } from '../interfaces/IErrorHandlerService';
-import { 
-  UserErrorOptions, 
-  UserWarningOptions, 
-  UserSuccessOptions, 
+import {
+  UserErrorOptions,
+  UserWarningOptions,
+  UserSuccessOptions,
   UserInfoOptions,
-  UserMessage 
+  UserMessage,
 } from '../types/index';
 
 /**
@@ -34,11 +34,7 @@ export const useAsyncHandler = () => {
   const errorHandler = useErrorHandler();
 
   const handleAsync = useCallback(
-    async <T>(
-      operation: () => Promise<T>,
-      context: string,
-      fallback?: T
-    ): Promise<T> => {
+    async <T>(operation: () => Promise<T>, context: string, fallback?: T): Promise<T> => {
       return errorHandler.handleAsync(operation, context, fallback);
     },
     [errorHandler]
@@ -87,19 +83,19 @@ export const useFormHandler = () => {
     ): Promise<T | undefined> => {
       try {
         const result = await submitOperation();
-        
+
         if (options?.successMessage) {
           errorHandler.showUserSuccess(options.successMessage);
         }
-        
+
         options?.onSuccess?.(result);
         return result;
       } catch (error) {
         errorHandler.logError(error as Error, context);
-        
+
         const message = options?.errorMessage || 'Submission failed. Please try again.';
         errorHandler.showUserError(message, { title: 'Submission Error' });
-        
+
         options?.onError?.(error as Error);
         return undefined;
       }
@@ -119,7 +115,11 @@ export const useUserMessages = () => {
 
   useEffect(() => {
     // Subscribe to message changes
-    const unsubscribe = (errorHandler as { onUserMessagesChange?: (callback: (messages: UserMessage[]) => void) => (() => void) | void }).onUserMessagesChange?.(setMessages);
+    const unsubscribe = (
+      errorHandler as {
+        onUserMessagesChange?: (callback: (messages: UserMessage[]) => void) => (() => void) | void;
+      }
+    ).onUserMessagesChange?.(setMessages);
     return unsubscribe;
   }, [errorHandler]);
 
@@ -127,21 +127,33 @@ export const useUserMessages = () => {
     errorHandler.clearUserMessages();
   }, [errorHandler]);
 
-  const showError = useCallback((message: string, options?: UserErrorOptions) => {
-    errorHandler.showUserError(message, options);
-  }, [errorHandler]);
+  const showError = useCallback(
+    (message: string, options?: UserErrorOptions) => {
+      errorHandler.showUserError(message, options);
+    },
+    [errorHandler]
+  );
 
-  const showSuccess = useCallback((message: string, options?: UserSuccessOptions) => {
-    errorHandler.showUserSuccess(message, options);
-  }, [errorHandler]);
+  const showSuccess = useCallback(
+    (message: string, options?: UserSuccessOptions) => {
+      errorHandler.showUserSuccess(message, options);
+    },
+    [errorHandler]
+  );
 
-  const showWarning = useCallback((message: string, options?: UserWarningOptions) => {
-    errorHandler.showUserWarning(message, options);
-  }, [errorHandler]);
+  const showWarning = useCallback(
+    (message: string, options?: UserWarningOptions) => {
+      errorHandler.showUserWarning(message, options);
+    },
+    [errorHandler]
+  );
 
-  const showInfo = useCallback((message: string, options?: UserInfoOptions) => {
-    errorHandler.showUserInfo(message, options);
-  }, [errorHandler]);
+  const showInfo = useCallback(
+    (message: string, options?: UserInfoOptions) => {
+      errorHandler.showUserInfo(message, options);
+    },
+    [errorHandler]
+  );
 
   return {
     messages,
@@ -149,6 +161,6 @@ export const useUserMessages = () => {
     showError,
     showSuccess,
     showWarning,
-    showInfo
+    showInfo,
   };
 };

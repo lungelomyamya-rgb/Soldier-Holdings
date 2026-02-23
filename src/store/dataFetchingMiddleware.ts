@@ -1,6 +1,6 @@
 /**
  * Data Fetching Middleware for Zustand
- * 
+ *
  * Replaces complex hook-based state synchronization
  * Provides automatic data fetching, caching, and error handling
  * Integrates with the dependency injection system
@@ -20,11 +20,11 @@ export interface DataFetchingState {
   transactions: Transaction[];
   fiatTotal: number;
   cryptoTotal: number;
-  
+
   // Loading state
   loading: boolean;
   error: string | null;
-  
+
   // Fetching actions
   fetchTransactions: () => Promise<void>;
   refetch: () => Promise<void>;
@@ -50,14 +50,12 @@ export const createDataFetchingMiddleware = (options: DataFetchingOptions) => {
     interval = config.dataService.updateInterval,
     enabled = !isTest,
     dataService,
-    errorHandler
+    errorHandler,
   } = options;
 
   let intervalId: NodeJS.Timeout | null = null;
 
-  return <T extends DataFetchingState>(
-    config: StateCreator<T>
-  ): StateCreator<T> => {
+  return <T extends DataFetchingState>(config: StateCreator<T>): StateCreator<T> => {
     return (set, get, api) => {
       const store = config(set, get, api);
 
@@ -65,82 +63,84 @@ export const createDataFetchingMiddleware = (options: DataFetchingOptions) => {
       const fetchTransactions = async () => {
         const startTime = Date.now();
         logger.info('Starting transaction fetch', { operation: 'fetchTransactions' });
-        
+
         try {
           set({ loading: true, error: null } as Partial<T>);
-          
+
           const transactions = await dataService.getTransactions();
           const fetchDuration = Date.now() - startTime;
-          
+
           logger.info('Transactions fetched successfully', {
             count: transactions.length,
             duration: fetchDuration,
             operation: 'fetchTransactions',
           });
-          
+
           monitoring.trackPerformance('data_fetch_transactions', fetchDuration, {
             transactionCount: String(transactions.length),
             operation: 'fetchTransactions',
           });
-          
+
           // Calculate totals
           const fiatTotal = transactions
             .filter(tx => tx.type === 'ZAR')
             .reduce((sum, tx) => sum + tx.amount, 0);
-          
+
           const cryptoTotal = transactions
             .filter(tx => tx.type !== 'ZAR')
             .reduce((sum, tx) => sum + tx.amount, 0);
-          
+
           logger.debug('Transaction totals calculated', {
             fiatTotal,
             cryptoTotal,
             fiatCount: transactions.filter(tx => tx.type === 'ZAR').length,
             cryptoCount: transactions.filter(tx => tx.type !== 'ZAR').length,
           });
-          
-          set({ 
-            transactions, 
-            fiatTotal, 
-            cryptoTotal, 
-            loading: false 
+
+          set({
+            transactions,
+            fiatTotal,
+            cryptoTotal,
+            loading: false,
           } as Partial<T>);
-          
+
           monitoring.trackUserAction('data_fetch_success', {
             transactionCount: transactions.length,
             duration: fetchDuration,
           });
-          
-          errorHandler.showUserSuccess(
-            `Loaded ${transactions.length} transactions`,
-            { title: 'Data Updated' }
-          );
+
+          errorHandler.showUserSuccess(`Loaded ${transactions.length} transactions`, {
+            title: 'Data Updated',
+          });
         } catch (error) {
           const fetchDuration = Date.now() - startTime;
           const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-          
-          logger.error('Transaction fetch failed', error instanceof Error ? error : new Error(errorMessage), {
-            duration: fetchDuration,
-            operation: 'fetchTransactions',
-          });
-          
+
+          logger.error(
+            'Transaction fetch failed',
+            error instanceof Error ? error : new Error(errorMessage),
+            {
+              duration: fetchDuration,
+              operation: 'fetchTransactions',
+            }
+          );
+
           monitoring.trackPerformance('data_fetch_transactions_error', fetchDuration, {
             error: errorMessage,
             operation: 'fetchTransactions',
           });
-          
+
           monitoring.trackUserAction('data_fetch_error', {
             error: errorMessage,
             duration: fetchDuration,
           });
-          
+
           set({ loading: false, error: errorMessage } as Partial<T>);
-          
+
           errorHandler.logError(error as Error, 'Data Fetch');
-          errorHandler.showUserError(
-            'Failed to fetch data. Please try again.',
-            { title: 'Data Error' }
-          );
+          errorHandler.showUserError('Failed to fetch data. Please try again.', {
+            title: 'Data Error',
+          });
         }
       };
 
@@ -155,15 +155,14 @@ export const createDataFetchingMiddleware = (options: DataFetchingOptions) => {
         const transactions = currentState.transactions.map(tx =>
           tx.id === id ? { ...tx, ...updates } : tx
         );
-        
+
         set({ transactions } as Partial<T>);
-        
+
         // Show notification for updates
         if (updates.status) {
-          errorHandler.showUserInfo(
-            `Transaction ${id} updated to ${updates.status}`,
-            { title: 'Transaction Updated' }
-          );
+          errorHandler.showUserInfo(`Transaction ${id} updated to ${updates.status}`, {
+            title: 'Transaction Updated',
+          });
         }
       };
 
@@ -180,12 +179,13 @@ export const createDataFetchingMiddleware = (options: DataFetchingOptions) => {
             const scanningTransactions = currentState.transactions.filter(
               tx => tx.status === 'scanning'
             );
-            
+
             if (scanningTransactions.length > 0 && Math.random() > 0.7) {
-              const randomTx = scanningTransactions[Math.floor(Math.random() * scanningTransactions.length)];
+              const randomTx =
+                scanningTransactions[Math.floor(Math.random() * scanningTransactions.length)];
               updateTransaction(randomTx.id, {
                 status: 'verified',
-                statusText: 'Compliant'
+                statusText: 'Compliant',
               });
             }
           }, interval);
@@ -238,7 +238,7 @@ export const useDataFetching = <T extends DataFetchingState>(store: () => T) => 
     fetchTransactions,
     refetch,
     updateTransaction,
-    clearError
+    clearError,
   } = store();
 
   return {
@@ -246,17 +246,17 @@ export const useDataFetching = <T extends DataFetchingState>(store: () => T) => 
     transactions,
     fiatTotal,
     cryptoTotal,
-    
+
     // State
     loading,
     error,
-    
+
     // Actions
     fetchTransactions,
     refetch,
     updateTransaction,
     clearError,
-    
+
     // Computed values
     transactionCount: transactions.length,
     hasData: transactions.length > 0,

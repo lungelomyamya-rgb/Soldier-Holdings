@@ -1,12 +1,17 @@
 /**
  * Configuration Hook
- * 
+ *
  * React hook for accessing environment configuration
  * Provides type-safe access to all configuration values
  */
 
 import { useCallback } from 'react';
-import config, { isFeatureEnabled, isDevelopment, isProduction, isTest } from '../config/environment';
+import config, {
+  isFeatureEnabled,
+  isDevelopment,
+  isProduction,
+  isTest,
+} from '../config/environment';
 
 /**
  * Hook for accessing application configuration
@@ -42,15 +47,15 @@ export const useConfig = () => {
   return {
     // Full config
     config,
-    
+
     // Feature flags
     isFeatureEnabled: isFeatureEnabledCallback,
-    
+
     // Environment checkers
     isDevelopment: isDev,
     isProduction: isProd,
     isTest: isTesting,
-    
+
     // Configuration getters
     getApp,
     getApi,
@@ -61,7 +66,7 @@ export const useConfig = () => {
     getBusiness,
     getUi,
     getIntegrations,
-    
+
     // Common values
     apiBaseUrl,
     debugMode,
@@ -84,7 +89,7 @@ export const useApiConfig = () => {
 export const useFeatures = () => {
   const { getFeatures, isFeatureEnabled } = useConfig();
   const features = getFeatures();
-  
+
   return {
     ...features,
     isFeatureEnabled,

@@ -16,10 +16,10 @@ import './styles/styles.css';
 // Initialize Sentry for error logging (only if enabled in config)
 if (config.errorHandling.sentryEnabled) {
   Sentry.init({
-    dsn: import.meta.env.VITE_REACT_APP_SENTRY_DSN || 'https://example@example.ingest.sentry.io/example',
-    integrations: [
-      new Sentry.BrowserTracing(),
-    ],
+    dsn:
+      import.meta.env.VITE_REACT_APP_SENTRY_DSN ||
+      'https://example@example.ingest.sentry.io/example',
+    integrations: [new Sentry.BrowserTracing()],
     tracesSampleRate: isProduction ? 0.1 : 1.0,
     environment: config.environment,
     enabled: config.errorHandling.sentryEnabled,

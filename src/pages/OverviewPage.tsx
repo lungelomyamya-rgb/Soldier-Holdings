@@ -1,6 +1,6 @@
 /**
  * OverviewPage Component
- * 
+ *
  * Now directly accesses the stores it needs instead of receiving props
  * Eliminates prop drilling and improves component autonomy
  * Optimized with useMemo for performance
@@ -20,50 +20,46 @@ const OverviewPage: React.FC = React.memo(() => {
   const { filter, setFilter } = useUIStore();
 
   // Memoize fiat stats to prevent recreation on every render
-  const fiatStats = useMemo(() => [
-    { label: 'Monthly Budget', value: 'R 15,000,000' },
-    { label: 'Compliance Rate', value: '98.4%' }
-  ], []);
+  const fiatStats = useMemo(
+    () => [
+      { label: 'Monthly Budget', value: 'R 15,000,000' },
+      { label: 'Compliance Rate', value: '98.4%' },
+    ],
+    []
+  );
 
   // Memoize crypto stats to prevent recreation on every render
-  const cryptoStats = useMemo(() => [
-    { label: 'BTC Holdings', value: '0.28' },
-    { label: 'Risk Score', value: 'Low' }
-  ], []);
+  const cryptoStats = useMemo(
+    () => [
+      { label: 'BTC Holdings', value: '0.28' },
+      { label: 'Risk Score', value: 'Low' },
+    ],
+    []
+  );
 
   // Memoize filter change handler
   const handleFilterChange = useMemo(() => setFilter, [setFilter]);
 
   return (
-    <>
-      <header className="header">
+    <div className='overview-page-mobile-layout'>
+      <header className='header'>
         <h2>Dual-Rail Command Center</h2>
         <p>Real-time political funding monitoring and compliance enforcement</p>
       </header>
-      
+
       <div className={styles.pulseCardsContainer}>
-        <PulseCard
-          type="fiat"
-          amount={fiatTotal}
-          stats={fiatStats}
-          badge="Active"
-        />
-        <PulseCard
-          type="crypto"
-          amount={cryptoTotal}
-          stats={cryptoStats}
-          badge="Monitored"
-        />
+        <PulseCard type='fiat' amount={fiatTotal} stats={fiatStats} badge='Active' />
+        <PulseCard type='crypto' amount={cryptoTotal} stats={cryptoStats} badge='Monitored' />
       </div>
-      
+
       <StatsGrid />
-      
+
       <TransactionFeed
         transactions={transactions}
         filter={filter}
         onFilterChange={handleFilterChange}
       />
-    </>
+    </div>
   );
 });
 

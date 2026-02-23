@@ -1,6 +1,6 @@
 /**
  * Data Store
- * 
+ *
  * Focused store for data-related state
  * Uses middleware for automatic data fetching and synchronization
  * Eliminates complex hook-based state management
@@ -19,7 +19,11 @@ interface DataStoreState extends DataFetchingState {
   // Computed selectors
   getTransactionsByType: (type: string) => Transaction[];
   getTransactionById: (id: number) => Transaction | undefined;
-  getStats: () => { totalTransactions: number; fiatTransactions: number; cryptoTransactions: number };
+  getStats: () => {
+    totalTransactions: number;
+    fiatTransactions: number;
+    cryptoTransactions: number;
+  };
 }
 
 const useDataStore = create<DataStoreState>()(
@@ -68,7 +72,7 @@ const useDataStore = create<DataStoreState>()(
         const { transactions } = get();
         const fiatTransactions = transactions.filter(tx => tx.type === 'ZAR');
         const cryptoTransactions = transactions.filter(tx => tx.type !== 'ZAR');
-        
+
         return {
           totalTransactions: transactions.length,
           fiatTransactions: fiatTransactions.length,
@@ -83,23 +87,25 @@ const useDataStore = create<DataStoreState>()(
 
       addTransaction: (transaction: Transaction) => {
         set(state => ({
-          transactions: [...state.transactions, transaction]
+          transactions: [...state.transactions, transaction],
         }));
       },
 
       removeTransaction: (id: number) => {
         set(state => ({
-          transactions: state.transactions.filter(tx => tx.id !== id)
+          transactions: state.transactions.filter(tx => tx.id !== id),
         }));
       },
 
       // Batch operations
-      updateMultipleTransactions: (updates: Array<{ id: number; updates: Partial<Transaction> }>) => {
+      updateMultipleTransactions: (
+        updates: Array<{ id: number; updates: Partial<Transaction> }>
+      ) => {
         set(state => ({
           transactions: state.transactions.map(tx => {
             const update = updates.find(u => u.id === tx.id);
             return update ? { ...tx, ...update.updates } : tx;
-          })
+          }),
         }));
       },
     })),

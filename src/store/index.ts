@@ -1,6 +1,6 @@
 /**
  * Store Index
- * 
+ *
  * Exports all focused stores for easy importing
  * Provides a clean separation of concerns:
  * - UI Store: Navigation, filters, UI state

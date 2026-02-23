@@ -8,7 +8,8 @@ const meta: Meta<typeof Sidebar> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Sidebar provides main navigation for the application with role-based access and mobile responsiveness.',
+        component:
+          'Sidebar provides main navigation for the application with role-based access and mobile responsiveness.',
       },
     },
   },
@@ -91,7 +92,8 @@ export const MobileMenuOpen: Story = {
     },
     docs: {
       description: {
-        story: 'Mobile menu state - typically shown on smaller screens when hamburger menu is clicked.',
+        story:
+          'Mobile menu state - typically shown on smaller screens when hamburger menu is clicked.',
       },
     },
   },
@@ -128,7 +130,8 @@ export const Interactive: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive sidebar - click on navigation items to see the onNavChange action triggered.',
+        story:
+          'Interactive sidebar - click on navigation items to see the onNavChange action triggered.',
       },
     },
   },

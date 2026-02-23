@@ -1,6 +1,6 @@
 /**
  * Structured Logging System
- * 
+ *
  * Comprehensive logging with levels, correlation IDs, and production observability
  */
 
@@ -125,7 +125,9 @@ class Logger {
   /**
    * Sanitize metadata to remove sensitive information
    */
-  private sanitizeMetadata(metadata?: Record<string, unknown>): Record<string, unknown> | undefined {
+  private sanitizeMetadata(
+    metadata?: Record<string, unknown>
+  ): Record<string, unknown> | undefined {
     if (!metadata) return undefined;
 
     const sensitiveKeys = ['password', 'token', 'apiKey', 'secret', 'creditCard', 'ssn'];
@@ -143,7 +145,12 @@ class Logger {
   /**
    * Log a message at the specified level
    */
-  private log(level: LogLevel, message: string, metadata?: Record<string, unknown>, error?: Error): void {
+  private log(
+    level: LogLevel,
+    message: string,
+    metadata?: Record<string, unknown>,
+    error?: Error
+  ): void {
     if (level < this.config.level) return;
 
     const entry = this.createLogEntry(level, message, metadata, error);
@@ -156,7 +163,7 @@ class Logger {
     // Buffer for remote/file logging
     if (this.config.enableRemote || this.config.enableFile) {
       this.logBuffer.push(entry);
-      
+
       if (this.logBuffer.length >= this.config.batchSize) {
         this.flushLogs();
       }
@@ -170,14 +177,14 @@ class Logger {
     // eslint-disable-next-line no-console
     const levelNames = ['DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'];
     const levelColors = ['#6B7280', '#3B82F6', '#F59E0B', '#EF4444', '#DC2626'];
-    
+
     const color = levelColors[entry.level];
     const levelName = levelNames[entry.level];
     const correlationId = entry.correlationId ? ` [${entry.correlationId}]` : '';
-    
+
     const style = `color: ${color}; font-weight: bold;`;
     const message = `%c[${levelName}]${correlationId} ${entry.timestamp} - ${entry.message}`;
-    
+
     // Use appropriate console method based on level
     switch (entry.level) {
       case LogLevel.DEBUG:
@@ -201,17 +208,17 @@ class Logger {
         // eslint-disable-next-line no-console
         console.log(message, style);
     }
-    
+
     if (entry.metadata) {
       // eslint-disable-next-line no-console
       console.log('Metadata:', entry.metadata);
     }
-    
+
     if (entry.error) {
       // eslint-disable-next-line no-console
       console.error('Error details:', entry.error);
     }
-    
+
     if (entry.performance) {
       // eslint-disable-next-line no-console
       console.info('Performance:', entry.performance);
@@ -297,7 +304,7 @@ class Logger {
       const existingLogs = localStorage.getItem('app_logs') || '[]';
       const allLogs = JSON.parse(existingLogs);
       allLogs.push(...logs);
-      
+
       // Keep only last 1000 logs to prevent storage overflow
       const trimmedLogs = allLogs.slice(-1000);
       localStorage.setItem('app_logs', JSON.stringify(trimmedLogs));
@@ -334,11 +341,7 @@ class Logger {
   /**
    * Performance logging
    */
-  performance(
-    operation: string,
-    duration: number,
-    metadata?: Record<string, unknown>
-  ): void {
+  performance(operation: string, duration: number, metadata?: Record<string, unknown>): void {
     const performanceData = {
       operation,
       duration,
@@ -400,7 +403,7 @@ class Logger {
     metadata?: Record<string, unknown>
   ): void {
     const level = statusCode && statusCode >= 400 ? LogLevel.WARN : LogLevel.INFO;
-    
+
     this.log(level, `API ${method} ${url}`, {
       ...metadata,
       category: 'api_request',
@@ -419,7 +422,7 @@ class Logger {
       clearInterval(this.flushTimer);
       this.flushTimer = null;
     }
-    
+
     // Flush any remaining logs
     this.flushLogs();
   }

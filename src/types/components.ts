@@ -1,6 +1,6 @@
 /**
  * Component Props Types
- * 
+ *
  * Type definitions for all React component props
  */
 

@@ -10,7 +10,12 @@ import { monitoring } from '../utils/monitoring';
 import Box from './ui/Box';
 import Flex from './ui/Flex';
 import Typography from './ui/Typography';
-import { LoggingContextType, LoggingProviderProps, LoggingErrorBoundaryProps, LoggingErrorBoundaryState } from '../types/index';
+import {
+  LoggingContextType,
+  LoggingProviderProps,
+  LoggingErrorBoundaryProps,
+  LoggingErrorBoundaryState,
+} from '../types/index';
 import styles from '../styles/LoggingErrorBoundary.module.css';
 
 const LoggingContext = createContext<LoggingContextType | null>(null);
@@ -242,24 +247,22 @@ export class LoggingErrorBoundary extends React.Component<
 
       return (
         <Box className={styles.errorContainer}>
-          <Flex className={styles.errorContent} direction="column">
-            <Typography variant="h2" className={styles.errorTitle}>
+          <Flex className={styles.errorContent} direction='column'>
+            <Typography variant='h2' className={styles.errorTitle}>
               Something went wrong
             </Typography>
 
             <Box className={styles.errorDetails}>
-              <Typography variant="subtitle2" className={styles.errorSummary}>
+              <Typography variant='subtitle2' className={styles.errorSummary}>
                 Error details
               </Typography>
-              <Typography variant="body2" className={styles.errorStack} component="pre">
+              <Typography variant='body2' className={styles.errorStack} component='pre'>
                 {this.state.error?.stack}
               </Typography>
             </Box>
 
             <button onClick={this.resetError} className={styles.errorButton}>
-              <Typography variant="body2">
-                Try again
-              </Typography>
+              <Typography variant='body2'>Try again</Typography>
             </button>
           </Flex>
         </Box>

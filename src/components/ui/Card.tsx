@@ -1,6 +1,6 @@
 /**
  * Card Component
- * 
+ *
  * A flexible container component for grouping related content
  * Supports multiple variants, hover effects, and custom content
  */
@@ -47,9 +47,9 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 
     return (
       <div ref={ref} className={classes} {...props}>
-        {header && <div className="card-header">{header}</div>}
-        <div className="card-content">{children}</div>
-        {footer && <div className="card-footer">{footer}</div>}
+        {header && <div className='card-header'>{header}</div>}
+        <div className='card-content'>{children}</div>
+        {footer && <div className='card-footer'>{footer}</div>}
       </div>
     );
   }

@@ -1,6 +1,6 @@
 /**
  * Dependency Injection Container
- * 
+ *
  * Manages service instances and their lifecycles
  * Provides factory methods for service creation
  * Enables easy testing and configuration management
@@ -13,13 +13,13 @@ import { ErrorHandlerService } from '../services/ErrorHandlerService';
 
 export enum ServiceType {
   DataService = 'DataService',
-  ErrorHandlerService = 'ErrorHandlerService'
+  ErrorHandlerService = 'ErrorHandlerService',
 }
 
 export enum Environment {
   Development = 'development',
   Production = 'production',
-  Test = 'test'
+  Test = 'test',
 }
 
 class ServiceContainer {
@@ -35,7 +35,10 @@ class ServiceContainer {
    * @param serviceType - Type of service
    * @param instance - Service instance
    */
-  register<T extends IDataService | IErrorHandlerService>(serviceType: ServiceType, instance: T): void {
+  register<T extends IDataService | IErrorHandlerService>(
+    serviceType: ServiceType,
+    instance: T
+  ): void {
     this.services.set(serviceType, instance);
   }
 
@@ -46,14 +49,14 @@ class ServiceContainer {
    */
   public get<T extends IDataService | IErrorHandlerService>(serviceType: ServiceType): T {
     const service = this.services.get(serviceType);
-    
+
     if (!service) {
       // Auto-create service if not registered
       const createdService = this.createService(serviceType);
       this.register(serviceType, createdService);
       return createdService as T;
     }
-    
+
     return service as T;
   }
 
@@ -75,10 +78,10 @@ class ServiceContainer {
           default:
             return new MockDataService();
         }
-      
+
       case ServiceType.ErrorHandlerService:
         return new ErrorHandlerService();
-      
+
       default:
         throw new Error(`Unknown service type: ${serviceType}`);
     }

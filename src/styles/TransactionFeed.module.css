@@ -96,7 +96,7 @@
 
 /* Add some spacing at the bottom of the last transaction item */
 .transactionList > *:last-child {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem; /* Increased from 1rem to ensure visibility */
 }
 
 .emptyState {
@@ -130,14 +130,14 @@
   /* Override fixed dimensions for mobile */
   .transactionFeed {
     width: 100%; /* Full width on mobile */
-    max-height: 500px; /* Controlled height for mobile */
-    height: auto; /* Allow flexible height */
+    height: 60vh; /* Use fixed viewport height for simplicity */
     flex-shrink: 1; /* Allow shrinking */
   }
 
   .transactionList {
-    max-height: 400px; /* Specific height for scrolling area */
-    flex: none; /* Don't grow */
+    height: 100%; /* Fill the transactionFeed */
+    overflow-y: auto; /* Ensure scrolling */
+    padding-bottom: 4rem; /* Increased padding to ensure last item visibility */
   }
 }
 
@@ -149,5 +149,15 @@
   .filterButton {
     flex: 1;
     text-align: center;
+  }
+
+  /* More restrictive for ultra-small mobiles */
+  .transactionFeed {
+    max-height: calc(100vh - 320px);
+  }
+
+  .transactionList {
+    max-height: calc(100vh - 420px);
+    padding-bottom: 1.5rem; /* Add padding to ensure last item visibility */
   }
 }

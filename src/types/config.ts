@@ -1,6 +1,6 @@
 /**
  * Configuration and Environment Types
- * 
+ *
  * Types for application configuration, environment settings, and feature flags
  */
 

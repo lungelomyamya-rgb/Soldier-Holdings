@@ -45,13 +45,15 @@ const UserMessages: React.FC<UserMessagesProps> = ({ className = '', position = 
   };
 
   return (
-    <Box className={`${styles.userMessages} ${styles[`position${position.charAt(0).toUpperCase() + position.slice(1)}`]} ${className}`}>
+    <Box
+      className={`${styles.userMessages} ${styles[`position${position.charAt(0).toUpperCase() + position.slice(1)}`]} ${className}`}
+    >
       {messages.map((message: UserMessage) => (
         <Box
           key={message.id}
           className={`${styles.userMessage} ${styles[`type${message.type.charAt(0).toUpperCase() + message.type.slice(1)}`]}`}
-          role="alert"
-          aria-live="polite"
+          role='alert'
+          aria-live='polite'
         >
           <Flex className={styles.messageContent}>
             <Flex className={styles.iconContainer}>
@@ -59,10 +61,10 @@ const UserMessages: React.FC<UserMessagesProps> = ({ className = '', position = 
             </Flex>
 
             <Box className={styles.textContent}>
-              <Typography variant="h4" className={styles.title}>
+              <Typography variant='h4' className={styles.title}>
                 {message.title}
               </Typography>
-              <Typography variant="body2" className={styles.message}>
+              <Typography variant='body2' className={styles.message}>
                 {message.message}
               </Typography>
             </Box>
@@ -71,9 +73,9 @@ const UserMessages: React.FC<UserMessagesProps> = ({ className = '', position = 
               <button
                 className={styles.closeButton}
                 onClick={() => clearMessages()}
-                aria-label="Close message"
+                aria-label='Close message'
               >
-                <i className="fas fa-times" />
+                <i className='fas fa-times' />
               </button>
             )}
           </Flex>
@@ -86,9 +88,7 @@ const UserMessages: React.FC<UserMessagesProps> = ({ className = '', position = 
                   className={`${styles.actionButton} ${action.primary ? styles.primary : ''}`}
                   onClick={() => handleMessageClick(message.id, action.action)}
                 >
-                  <Typography variant="body2">
-                    {action.label}
-                  </Typography>
+                  <Typography variant='body2'>{action.label}</Typography>
                 </button>
               ))}
             </Flex>
@@ -98,9 +98,7 @@ const UserMessages: React.FC<UserMessagesProps> = ({ className = '', position = 
 
       {messages.length > 1 && (
         <button className={styles.clearAllButton} onClick={clearMessages}>
-          <Typography variant="body2">
-            Clear All
-          </Typography>
+          <Typography variant='body2'>Clear All</Typography>
         </button>
       )}
     </Box>

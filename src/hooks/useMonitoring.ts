@@ -1,6 +1,6 @@
 /**
  * Performance Monitoring Hooks
- * 
+ *
  * React hooks for component performance monitoring and logging
  */
 
@@ -20,7 +20,7 @@ export function useComponentPerformance(componentName: string, metadata?: Record
     renderCount.current += 1;
     const now = Date.now();
     const renderTime = now - lastRenderTime.current;
-    
+
     // Track component performance
     monitoring.trackComponentPerformance(componentName, renderTime, {
       renderCount: renderCount.current,
@@ -40,7 +40,7 @@ export function useComponentPerformance(componentName: string, metadata?: Record
   // Track mount
   useEffect(() => {
     const mountDuration = Date.now() - mountTime.current;
-    
+
     monitoring.trackComponentPerformance(`${componentName}_mount`, mountDuration, {
       ...metadata,
     });
@@ -53,9 +53,13 @@ export function useComponentPerformance(componentName: string, metadata?: Record
     // Track unmount
     return () => {
       const currentMountTime = mountTime.current;
-      monitoring.trackComponentPerformance(`${componentName}_unmount`, Date.now() - currentMountTime, {
-        ...metadata,
-      });
+      monitoring.trackComponentPerformance(
+        `${componentName}_unmount`,
+        Date.now() - currentMountTime,
+        {
+          ...metadata,
+        }
+      );
 
       logger.componentLifecycle(componentName, 'unmount', {
         totalRenders: renderCount.current,
@@ -88,9 +92,9 @@ export function useAsyncPerformance<T>(
   const executeOperation = useCallback(async (): Promise<T> => {
     operationCount.current += 1;
     startTime.current = Date.now();
-    
+
     const operationId = `${operationName}_${operationCount.current}`;
-    
+
     logger.debug(`Starting async operation: ${operationName}`, {
       operationId,
       operationCount: operationCount.current,
@@ -99,7 +103,7 @@ export function useAsyncPerformance<T>(
     try {
       const result = await operation();
       const duration = Date.now() - (startTime.current || Date.now());
-      
+
       monitoring.trackPerformance(operationName, duration, {
         operationId,
         success: 'true',
@@ -115,7 +119,7 @@ export function useAsyncPerformance<T>(
       return result;
     } catch (error) {
       const duration = Date.now() - (startTime.current || Date.now());
-      
+
       monitoring.trackPerformance(operationName, duration, {
         operationId,
         success: 'false',
@@ -123,11 +127,15 @@ export function useAsyncPerformance<T>(
         operationCount: operationCount.current,
       });
 
-      logger.error(`Async operation failed: ${operationName}`, error instanceof Error ? error : new Error('Unknown error'), {
-        operationId,
-        duration,
-        success: false,
-      });
+      logger.error(
+        `Async operation failed: ${operationName}`,
+        error instanceof Error ? error : new Error('Unknown error'),
+        {
+          operationId,
+          duration,
+          success: false,
+        }
+      );
 
       throw error;
     }
@@ -140,10 +148,7 @@ export function useAsyncPerformance<T>(
  * Hook for monitoring user interactions
  */
 export function useUserInteraction() {
-  const trackInteraction = useCallback((
-    action: string,
-    metadata?: Record<string, unknown>
-  ) => {
+  const trackInteraction = useCallback((action: string, metadata?: Record<string, unknown>) => {
     monitoring.trackUserAction(action, {
       timestamp: Date.now(),
       ...metadata,
@@ -152,37 +157,36 @@ export function useUserInteraction() {
     logger.userAction(action, metadata);
   }, []);
 
-  const trackClick = useCallback((
-    element: string,
-    metadata?: Record<string, unknown>
-  ) => {
-    trackInteraction('click', {
-      element,
-      ...metadata,
-    });
-  }, [trackInteraction]);
+  const trackClick = useCallback(
+    (element: string, metadata?: Record<string, unknown>) => {
+      trackInteraction('click', {
+        element,
+        ...metadata,
+      });
+    },
+    [trackInteraction]
+  );
 
-  const trackFormSubmit = useCallback((
-    formName: string,
-    metadata?: Record<string, unknown>
-  ) => {
-    trackInteraction('form_submit', {
-      formName,
-      ...metadata,
-    });
-  }, [trackInteraction]);
+  const trackFormSubmit = useCallback(
+    (formName: string, metadata?: Record<string, unknown>) => {
+      trackInteraction('form_submit', {
+        formName,
+        ...metadata,
+      });
+    },
+    [trackInteraction]
+  );
 
-  const trackNavigation = useCallback((
-    from: string,
-    to: string,
-    metadata?: Record<string, unknown>
-  ) => {
-    trackInteraction('navigation', {
-      from,
-      to,
-      ...metadata,
-    });
-  }, [trackInteraction]);
+  const trackNavigation = useCallback(
+    (from: string, to: string, metadata?: Record<string, unknown>) => {
+      trackInteraction('navigation', {
+        from,
+        to,
+        ...metadata,
+      });
+    },
+    [trackInteraction]
+  );
 
   return {
     trackInteraction,
@@ -196,54 +200,57 @@ export function useUserInteraction() {
  * Hook for monitoring API calls
  */
 export function useApiPerformance() {
-  const trackApiCall = useCallback(async <T>(
-    apiCall: () => Promise<T>,
-    url: string,
-    method: string = 'GET',
-    metadata?: Record<string, unknown>
-  ): Promise<T> => {
-    const startTime = Date.now();
-    const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const trackApiCall = useCallback(
+    async <T>(
+      apiCall: () => Promise<T>,
+      url: string,
+      method: string = 'GET',
+      metadata?: Record<string, unknown>
+    ): Promise<T> => {
+      const startTime = Date.now();
+      const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    logger.debug(`API call started: ${method} ${url}`, {
-      requestId,
-      method,
-      url,
-      ...metadata,
-    });
-
-    try {
-      const result = await apiCall();
-      const duration = Date.now() - startTime;
-      
-      // Assume success if no error thrown (status code would be checked in actual implementation)
-      const statusCode = 200;
-      
-      monitoring.trackApiPerformance(url, method, duration, statusCode);
-      
-      logger.apiRequest(method, url, statusCode, duration, {
+      logger.debug(`API call started: ${method} ${url}`, {
         requestId,
-        success: true,
+        method,
+        url,
         ...metadata,
       });
 
-      return result;
-    } catch (error) {
-      const duration = Date.now() - startTime;
-      const statusCode = error instanceof Response ? error.status : 500;
-      
-      monitoring.trackApiPerformance(url, method, duration, statusCode);
-      
-      logger.apiRequest(method, url, statusCode, duration, {
-        requestId,
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
-        ...metadata,
-      });
+      try {
+        const result = await apiCall();
+        const duration = Date.now() - startTime;
 
-      throw error;
-    }
-  }, []);
+        // Assume success if no error thrown (status code would be checked in actual implementation)
+        const statusCode = 200;
+
+        monitoring.trackApiPerformance(url, method, duration, statusCode);
+
+        logger.apiRequest(method, url, statusCode, duration, {
+          requestId,
+          success: true,
+          ...metadata,
+        });
+
+        return result;
+      } catch (error) {
+        const duration = Date.now() - startTime;
+        const statusCode = error instanceof Response ? error.status : 500;
+
+        monitoring.trackApiPerformance(url, method, duration, statusCode);
+
+        logger.apiRequest(method, url, statusCode, duration, {
+          requestId,
+          success: false,
+          error: error instanceof Error ? error.message : 'Unknown error',
+          ...metadata,
+        });
+
+        throw error;
+      }
+    },
+    []
+  );
 
   return {
     trackApiCall,
@@ -260,7 +267,11 @@ export function useMemoryMonitoring(intervalMs: number = 30000) {
   useEffect(() => {
     const updateMemoryUsage = () => {
       if ('memory' in performance) {
-        const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+        const memory = (
+          performance as Performance & {
+            memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number };
+          }
+        ).memory;
         if (memory) {
           memoryUsage.current = memory.usedJSHeapSize;
           memoryLimit.current = memory.jsHeapSizeLimit;
@@ -289,9 +300,10 @@ export function useMemoryMonitoring(intervalMs: number = 30000) {
   return {
     memoryUsage: memoryUsage.current,
     memoryLimit: memoryLimit.current,
-    memoryPercentage: memoryUsage.current && memoryLimit.current 
-      ? (memoryUsage.current / memoryLimit.current) * 100 
-      : undefined,
+    memoryPercentage:
+      memoryUsage.current && memoryLimit.current
+        ? (memoryUsage.current / memoryLimit.current) * 100
+        : undefined,
   };
 }
 
@@ -309,8 +321,10 @@ export function usePagePerformance() {
   useEffect(() => {
     const collectPageMetrics = () => {
       if ('performance' in window && 'getEntriesByType' in performance) {
-        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-        
+        const navigation = performance.getEntriesByType(
+          'navigation'
+        )[0] as PerformanceNavigationTiming;
+
         if (navigation) {
           pageMetrics.current = {
             loadTime: navigation.loadEventEnd - navigation.fetchStart,
@@ -320,7 +334,9 @@ export function usePagePerformance() {
           // Get paint metrics
           const paintEntries = performance.getEntriesByType('paint');
           const firstPaint = paintEntries.find(entry => entry.name === 'first-paint');
-          const firstContentfulPaint = paintEntries.find(entry => entry.name === 'first-contentful-paint');
+          const firstContentfulPaint = paintEntries.find(
+            entry => entry.name === 'first-contentful-paint'
+          );
 
           if (firstPaint) {
             pageMetrics.current.firstPaint = firstPaint.startTime;
@@ -392,24 +408,23 @@ export function usePerformanceTracker() {
     };
   }, []);
 
-  const trackTiming = useCallback((
-    operationName: string,
-    operation: () => void,
-    metadata?: Record<string, unknown>
-  ) => {
-    const { endTiming } = startTiming(operationName);
-    
-    try {
-      operation();
-      return endTiming({ success: true, ...metadata });
-    } catch (error) {
-      return endTiming({ 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error',
-        ...metadata 
-      });
-    }
-  }, [startTiming]);
+  const trackTiming = useCallback(
+    (operationName: string, operation: () => void, metadata?: Record<string, unknown>) => {
+      const { endTiming } = startTiming(operationName);
+
+      try {
+        operation();
+        return endTiming({ success: true, ...metadata });
+      } catch (error) {
+        return endTiming({
+          success: false,
+          error: error instanceof Error ? error.message : 'Unknown error',
+          ...metadata,
+        });
+      }
+    },
+    [startTiming]
+  );
 
   return {
     startTiming,

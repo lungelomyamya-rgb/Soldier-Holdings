@@ -1,6 +1,6 @@
 /**
  * Monitoring System
- * 
+ *
  * Performance monitoring, error tracking, and metrics collection
  */
 
@@ -62,14 +62,16 @@ class MonitoringSystem {
     if (this.isInitialized) return;
 
     this.correlationContext = correlationContext || this.generateDefaultContext();
-    
+
     this.setupErrorHandling();
     this.setupPerformanceMonitoring();
     this.setupUserInteractionTracking();
     this.setupSystemMonitoring();
-    
+
     this.isInitialized = true;
-    logger.info('Monitoring system initialized', { correlationId: this.correlationContext.correlationId });
+    logger.info('Monitoring system initialized', {
+      correlationId: this.correlationContext.correlationId,
+    });
   }
 
   /**
@@ -107,7 +109,7 @@ class MonitoringSystem {
    */
   private setupErrorHandling(): void {
     // Unhandled JavaScript errors
-    window.addEventListener('error', (event) => {
+    window.addEventListener('error', event => {
       this.trackError({
         message: event.message,
         stack: event.error?.stack,
@@ -123,7 +125,7 @@ class MonitoringSystem {
     });
 
     // Unhandled promise rejections
-    window.addEventListener('unhandledrejection', (event) => {
+    window.addEventListener('unhandledrejection', event => {
       this.trackError({
         message: `Unhandled Promise Rejection: ${event.reason}`,
         stack: event.reason?.stack,
@@ -155,7 +157,7 @@ class MonitoringSystem {
     // Monitor long tasks
     if ('PerformanceObserver' in window) {
       try {
-        const observer = new PerformanceObserver((list) => {
+        const observer = new PerformanceObserver(list => {
           for (const entry of list.getEntries()) {
             if (entry.entryType === 'longtask') {
               this.trackPerformance('long_task', entry.duration, {
@@ -167,8 +169,8 @@ class MonitoringSystem {
         });
         observer.observe({ entryTypes: ['longtask'] });
       } catch (error) {
-        logger.warn('Long task monitoring not supported', { 
-          error: error instanceof Error ? error.message : 'Unknown error' 
+        logger.warn('Long task monitoring not supported', {
+          error: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     }
@@ -179,7 +181,7 @@ class MonitoringSystem {
    */
   private collectPageLoadMetrics(): void {
     const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-    
+
     if (navigation) {
       this.trackPerformance('page_load', navigation.loadEventEnd - navigation.fetchStart, {
         dnsLookup: navigation.domainLookupEnd - navigation.domainLookupStart,
@@ -216,7 +218,7 @@ class MonitoringSystem {
    */
   private setupUserInteractionTracking(): void {
     // Track clicks
-    document.addEventListener('click', (event) => {
+    document.addEventListener('click', event => {
       const target = event.target as HTMLElement;
       this.trackUserAction('click', {
         element: target.tagName,
@@ -227,7 +229,7 @@ class MonitoringSystem {
     });
 
     // Track form submissions
-    document.addEventListener('submit', (event) => {
+    document.addEventListener('submit', event => {
       const target = event.target as HTMLFormElement;
       this.trackUserAction('form_submit', {
         formId: target.id,
@@ -313,7 +315,9 @@ class MonitoringSystem {
    */
   private getConnectionType(): string | undefined {
     if ('connection' in navigator) {
-      const connection = (navigator as Navigator & { connection?: { effectiveType?: string; type?: string } }).connection;
+      const connection = (
+        navigator as Navigator & { connection?: { effectiveType?: string; type?: string } }
+      ).connection;
       return connection?.effectiveType || connection?.type;
     }
     return undefined;
@@ -328,9 +332,9 @@ class MonitoringSystem {
       value,
       unit: 'ms',
       timestamp: Date.now(),
-      tags: tags ? Object.fromEntries(
-        Object.entries(tags).map(([k, v]) => [k, String(v)])
-      ) : undefined,
+      tags: tags
+        ? Object.fromEntries(Object.entries(tags).map(([k, v]) => [k, String(v)]))
+        : undefined,
     };
 
     this.performanceMetrics.push(metric);
@@ -384,7 +388,11 @@ class MonitoringSystem {
   /**
    * Track component performance
    */
-  trackComponentPerformance(componentName: string, renderTime: number, metadata?: Record<string, unknown>): void {
+  trackComponentPerformance(
+    componentName: string,
+    renderTime: number,
+    metadata?: Record<string, unknown>
+  ): void {
     this.trackPerformance(`component_render_${componentName}`, renderTime, {
       component: componentName,
       ...metadata,
@@ -441,7 +449,7 @@ class MonitoringSystem {
     if (!this.correlationContext) {
       this.correlationContext = this.generateDefaultContext();
     }
-    
+
     this.correlationContext = { ...this.correlationContext, ...context };
     logger.setCorrelationContext(this.correlationContext);
   }

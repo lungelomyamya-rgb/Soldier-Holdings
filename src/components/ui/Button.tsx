@@ -38,24 +38,26 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const sizeClasses = `btn-${size}`;
     const widthClasses = fullWidth ? 'btn-full-width' : '';
     const loadingClasses = loading ? 'btn-loading' : '';
-    
+
     const classes = [
       baseClasses,
       variantClasses,
       sizeClasses,
       widthClasses,
       loadingClasses,
-      className
-    ].filter(Boolean).join(' ');
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     const renderIcon = () => {
       if (!icon && !loading) return null;
-      
+
       if (loading) {
-        return <i className="fas fa-spinner fa-spin" aria-hidden="true" />;
+        return <i className='fas fa-spinner fa-spin' aria-hidden='true' />;
       }
-      
-      return <i className={`fas ${icon}`} aria-hidden="true" />;
+
+      return <i className={`fas ${icon}`} aria-hidden='true' />;
     };
 
     return (
@@ -68,10 +70,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {iconPosition === 'left' && renderIcon()}
-        <span className="btn-text">{children}</span>
+        <span className='btn-text'>{children}</span>
         {iconPosition === 'right' && renderIcon()}
         {loading && (
-          <span id="loading-description" className="sr-only">
+          <span id='loading-description' className='sr-only'>
             Loading, please wait
           </span>
         )}

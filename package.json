@@ -100,7 +100,7 @@
       "prettier --write"
     ],
     "*.{ts,tsx}": [
-      "tsc --noEmit --skipLibCheck --project tsconfig.lint.json"
+      "tsc --noEmit --skipLibCheck"
     ]
   }
 }

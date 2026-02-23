@@ -88,11 +88,19 @@
   margin: 0 auto; /* Center the content */
 }
 
-/* Add content container for mobile width constraint */
+/* Mobile Content Container - Enhanced */
 .mobile-content-container {
   max-width: 480px; /* Reasonable max width for mobile content */
   margin: 0 auto; /* Center the container */
   width: 100%;
+}
+
+/* Overview Page Mobile Layout */
+.overview-page-mobile-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure full viewport height */
+  padding-bottom: var(--space-4); /* Add bottom padding to prevent overflow */
 }
 
 /* Mobile Menu Toggle - Enhanced */
@@ -596,16 +604,6 @@
 
   .stat-value {
     font-size: var(--text-lg);
-  }
-
-  .transaction-feed {
-    padding: var(--space-3);
-    flex: 1; /* Allow feed to grow within parent constraints */
-    min-height: 300px;
-    max-height: 500px; /* Reasonable max height instead of viewport calc */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
   }
 
   .feed-header {

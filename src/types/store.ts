@@ -1,6 +1,6 @@
 /**
  * Store and State Management Types
- * 
+ *
  * Types for Zustand stores, state management, and data flow
  */
 
@@ -15,12 +15,12 @@ export interface StoreState {
   cryptoTotal: number;
   loading: boolean;
   error: string | null;
-  
+
   // UI State
   activeNav: string;
   mobileMenuOpen: boolean;
   filter: string;
-  
+
   // App State
   notifications: UserMessage[];
   isOnline: boolean;
@@ -32,11 +32,11 @@ export interface DataFetchingState {
   transactions: Transaction[];
   fiatTotal: number;
   cryptoTotal: number;
-  
+
   // Loading state
   loading: boolean;
   error: string | null;
-  
+
   // Fetching actions
   fetchTransactions: () => Promise<void>;
   refetch: () => Promise<void>;

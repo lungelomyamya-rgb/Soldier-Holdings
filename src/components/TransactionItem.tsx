@@ -51,31 +51,31 @@ const TransactionItem: React.FC<TransactionItemProps> = React.memo(({ transactio
   // Memoize spinner icon for scanning status
   const spinnerIcon = useMemo(() => {
     return transaction.status === 'scanning' ? (
-      <i className="fas fa-spinner fa-spin pulse" aria-hidden="true" />
+      <i className='fas fa-spinner fa-spin pulse' aria-hidden='true' />
     ) : null;
   }, [transaction.status]);
 
   return (
-    <Box className={styles.transactionItem} role="article" aria-label={ariaLabel}>
+    <Box className={styles.transactionItem} role='article' aria-label={ariaLabel}>
       <Flex className={styles.iconContainer}>
-        <i className={`fab fa-${iconClass} ${styles.icon}`} aria-hidden="true" />
+        <i className={`fab fa-${iconClass} ${styles.icon}`} aria-hidden='true' />
       </Flex>
-      
+
       <Box className={styles.details}>
-        <Typography variant="h4" className={styles.amount}>
+        <Typography variant='h4' className={styles.amount}>
           {formattedAmount}
         </Typography>
-        
+
         <Flex className={styles.addresses}>
-          <Typography variant="body2" className={styles.fromAddress}>
+          <Typography variant='body2' className={styles.fromAddress}>
             {transaction.from}
           </Typography>
         </Flex>
       </Box>
-      
+
       <Flex className={styles.statusContainer}>
         {spinnerIcon}
-        <Typography variant="body2" className={statusClass}>
+        <Typography variant='body2' className={statusClass}>
           {transaction.statusText}
         </Typography>
       </Flex>

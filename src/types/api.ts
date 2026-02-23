@@ -1,6 +1,6 @@
 /**
  * API and Service Types
- * 
+ *
  * Types for API responses, service interfaces, and data operations
  */
 

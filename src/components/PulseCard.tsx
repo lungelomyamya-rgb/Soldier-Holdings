@@ -37,27 +37,21 @@ const PulseCard: React.FC<PulseCardProps> = React.memo(
     }, [amount, typeConfig.amountPrefix, typeConfig.amountSuffix, type]);
 
     return (
-      <div 
+      <div
         className={`${styles.pulseCard} ${typeConfig.isFiat ? styles.fiat : styles.crypto} ${className || ''}`}
         data-testid={testId}
       >
         <div className={styles.header}>
           <div className={styles.titleContainer}>
             <div className={styles.iconContainer}>
-              <i className={`fas fa-${typeConfig.icon}`} aria-hidden="true" />
+              <i className={`fas fa-${typeConfig.icon}`} aria-hidden='true' />
             </div>
-            <Typography className={styles.title}>
-              {typeConfig.title}
-            </Typography>
+            <Typography className={styles.title}>{typeConfig.title}</Typography>
           </div>
-          <div className={styles.badge}>
-            {badge}
-          </div>
+          <div className={styles.badge}>{badge}</div>
         </div>
 
-        <Typography className={styles.amount}>
-          {formattedAmount}
-        </Typography>
+        <Typography className={styles.amount}>{formattedAmount}</Typography>
 
         <div className={styles.statsContainer}>
           {stats.map((stat, index) => (

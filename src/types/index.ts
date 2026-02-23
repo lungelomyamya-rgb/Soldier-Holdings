@@ -1,6 +1,6 @@
 /**
  * Types Index - Central Type Exports
- * 
+ *
  * Re-exports all types from their respective modules
  * Provides a single entry point for all type imports
  */
@@ -13,10 +13,7 @@ export * from './components';
 export * from './ui';
 
 // Logging and monitoring types
-export type {
-  CorrelationContext,
-  LoggingContextType,
-} from './logging';
+export type { CorrelationContext, LoggingContextType } from './logging';
 
 // API and service types
 export * from './api';

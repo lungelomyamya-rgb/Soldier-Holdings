@@ -1,6 +1,6 @@
 /**
  * Utility and Advanced Types
- * 
+ *
  * Utility types, advanced TypeScript patterns, and helper types
  */
 
@@ -24,9 +24,17 @@ export type FirstElement<T extends readonly unknown[]> = T[0];
 export type LastElement<T extends readonly unknown[]> = T[number];
 
 // Function utility types
-export type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;
-export type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any;
-export type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (...args: any) => Promise<infer R> ? R : never;
+export type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any
+  ? P
+  : never;
+export type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R
+  ? R
+  : any;
+export type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (
+  ...args: any
+) => Promise<infer R>
+  ? R
+  : never;
 
 // Object utility types
 export type KeysOfType<T, U> = {
@@ -45,12 +53,12 @@ export type IsAny<T> = 0 extends 1 & T ? true : false;
 export type IsUnknown<T> = IsAny<T> extends true ? false : unknown extends T ? true : false;
 
 // String manipulation types
-export type Capitalize<T extends string> = T extends `${infer F}${infer R}` 
-  ? `${Uppercase<F>}${R}` 
+export type Capitalize<T extends string> = T extends `${infer F}${infer R}`
+  ? `${Uppercase<F>}${R}`
   : T;
 
-export type Uncapitalize<T extends string> = T extends `${infer F}${infer R}` 
-  ? `${Lowercase<F>}${R}` 
+export type Uncapitalize<T extends string> = T extends `${infer F}${infer R}`
+  ? `${Lowercase<F>}${R}`
   : T;
 
 // Event handler types

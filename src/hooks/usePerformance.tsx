@@ -1,6 +1,6 @@
 /**
  * Performance Optimization Hooks
- * 
+ *
  * Custom hooks for optimizing expensive computations and preventing unnecessary re-renders
  */
 
@@ -18,11 +18,11 @@ export function useMemoizedComputation<T>(
   debugName?: string
 ): T {
   const result = useMemo(factory, deps);
-  
+
   if (debugName && import.meta.env.MODE === 'development') {
     console.debug(`[useMemoizedComputation] ${debugName} computed`);
   }
-  
+
   return result;
 }
 
@@ -38,11 +38,11 @@ export function useMemoizedCallback<T extends (...args: any[]) => any>(
   debugName?: string
 ): T {
   const callback = useCallback(handler, deps);
-  
+
   if (debugName && import.meta.env.MODE === 'development') {
     console.debug(`[useMemoizedCallback] ${debugName} created`);
   }
-  
+
   return callback as T;
 }
 
@@ -52,11 +52,7 @@ export function useMemoizedCallback<T extends (...args: any[]) => any>(
  * @param delay - Delay in milliseconds
  * @param debugName - Optional name for debugging
  */
-export function useDebouncedValue<T>(
-  value: T,
-  delay: number,
-  debugName?: string
-): T {
+export function useDebouncedValue<T>(value: T, delay: number, debugName?: string): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
   const timeoutRef = useRef<NodeJS.Timeout>();
 
@@ -88,11 +84,7 @@ export function useDebouncedValue<T>(
  * @param delay - Delay in milliseconds
  * @param debugName - Optional name for debugging
  */
-export function useThrottledValue<T>(
-  value: T,
-  delay: number,
-  debugName?: string
-): T {
+export function useThrottledValue<T>(value: T, delay: number, debugName?: string): T {
   const [throttledValue, setThrottledValue] = useState<T>(value);
   const lastExecuted = useRef<number>(Date.now());
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -148,7 +140,7 @@ export function useVirtualization<T>(
     const visibleCount = Math.ceil(containerHeight / itemHeight);
     const startIndex = Math.max(0, 0 - overscan);
     const endIndex = Math.min(items.length - 1, startIndex + visibleCount + overscan * 2);
-    
+
     const visibleItems = items.slice(startIndex, endIndex + 1);
     const totalHeight = items.length * itemHeight;
     const offsetY = startIndex * itemHeight;
@@ -158,7 +150,7 @@ export function useVirtualization<T>(
       totalHeight,
       offsetY,
       startIndex,
-      endIndex
+      endIndex,
     };
   }, [items, itemHeight, containerHeight, overscan]);
 }
@@ -178,7 +170,7 @@ export function useCachedComputation<T>(
 
   return useMemo(() => {
     const now = Date.now();
-    const isCacheValid = cacheRef.current && (now - cacheRef.current.timestamp) < ttl;
+    const isCacheValid = cacheRef.current && now - cacheRef.current.timestamp < ttl;
 
     if (isCacheValid) {
       return cacheRef.current!.value;
@@ -202,17 +194,19 @@ export function usePerformanceMonitor(name: string) {
     renderCount.current += 1;
     const now = Date.now();
     const timeSinceLastRender = now - lastRenderTime.current;
-    
+
     if (import.meta.env.MODE === 'development') {
-      console.debug(`[PerformanceMonitor] ${name} render #${renderCount.current}, time since last: ${timeSinceLastRender}ms`);
+      console.debug(
+        `[PerformanceMonitor] ${name} render #${renderCount.current}, time since last: ${timeSinceLastRender}ms`
+      );
     }
-    
+
     lastRenderTime.current = now;
   });
 
   return {
     renderCount: renderCount.current,
-    timeSinceLastRender: Date.now() - lastRenderTime.current
+    timeSinceLastRender: Date.now() - lastRenderTime.current,
   };
 }
 

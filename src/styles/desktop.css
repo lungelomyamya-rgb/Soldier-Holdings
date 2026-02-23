@@ -37,12 +37,12 @@
   }
 
   /* Hide sidebar navigation container on desktop */
-  aside[class*="sidebar"] {
+  aside[class*='sidebar'] {
     display: none;
   }
 
   /* Also hide any sidebar with navContainer class */
-  [class*="navContainer"] {
+  [class*='navContainer'] {
     display: none;
   }
 

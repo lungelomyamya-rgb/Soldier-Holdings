@@ -148,7 +148,7 @@ const App = () => {
 
       {/* Mobile Backdrop */}
       {mobileMenuOpen && (
-        <div 
+        <div
           className='mobile-backdrop'
           onClick={() => setMobileMenuOpen(false)}
           aria-label='Close navigation menu'

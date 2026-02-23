@@ -1,6 +1,6 @@
 /**
  * Data Service Interface
- * 
+ *
  * Defines the contract for data operations
  * Enables dependency injection and testability
  */
@@ -20,7 +20,10 @@ export interface IDataService {
    * @param newStatus - New status value
    * @returns Updated transaction or undefined
    */
-  updateTransactionStatus(transactionId: number, newStatus: 'pending' | 'scanning' | 'verified' | 'rejected'): Promise<Transaction | undefined>;
+  updateTransactionStatus(
+    transactionId: number,
+    newStatus: 'pending' | 'scanning' | 'verified' | 'rejected'
+  ): Promise<Transaction | undefined>;
 
   /**
    * Get transaction by ID

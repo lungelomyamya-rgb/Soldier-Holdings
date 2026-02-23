@@ -1,12 +1,18 @@
 /**
  * Error Handler Service
- * 
+ *
  * Centralized error handling and user feedback system
  * Integrates with Sentry for error logging and provides consistent user notifications
  */
 
 import * as Sentry from '@sentry/react';
-import { IErrorHandlerService, ErrorSeverity, UserErrorOptions, UserMessageOptions, UserMessageAction } from '../interfaces/IErrorHandlerService';
+import {
+  IErrorHandlerService,
+  ErrorSeverity,
+  UserErrorOptions,
+  UserMessageOptions,
+  UserMessageAction,
+} from '../interfaces/IErrorHandlerService';
 import { config, isDevelopment, isProduction } from '../config';
 
 export class ErrorHandlerService implements IErrorHandlerService {
@@ -32,11 +38,11 @@ export class ErrorHandlerService implements IErrorHandlerService {
 
     // Log to Sentry in production if enabled
     if (config.errorHandling.sentryEnabled && isProduction) {
-      Sentry.withScope((scope) => {
+      Sentry.withScope(scope => {
         scope.setTag('context', context);
         scope.setTag('severity', severity);
         scope.setLevel(severity === ErrorSeverity.CRITICAL ? 'fatal' : 'error');
-        
+
         // Add additional context
         scope.setContext('environment', {
           environment: config.environment,
@@ -84,7 +90,7 @@ export class ErrorHandlerService implements IErrorHandlerService {
       timestamp: new Date(),
       duration: options.duration ?? 5000,
       persistent: options.persistent ?? false,
-      actions: options.actions ?? []
+      actions: options.actions ?? [],
     };
 
     this.addUserMessage(userMessage);
@@ -102,7 +108,7 @@ export class ErrorHandlerService implements IErrorHandlerService {
       timestamp: new Date(),
       duration: options.duration ?? 3000,
       persistent: options.persistent ?? false,
-      actions: options.actions ?? []
+      actions: options.actions ?? [],
     };
 
     this.addUserMessage(userMessage);
@@ -120,7 +126,7 @@ export class ErrorHandlerService implements IErrorHandlerService {
       timestamp: new Date(),
       duration: options.duration ?? 4000,
       persistent: options.persistent ?? false,
-      actions: options.actions ?? []
+      actions: options.actions ?? [],
     };
 
     this.addUserMessage(userMessage);
@@ -138,7 +144,7 @@ export class ErrorHandlerService implements IErrorHandlerService {
       timestamp: new Date(),
       duration: options.duration ?? 3000,
       persistent: options.persistent ?? false,
-      actions: options.actions ?? []
+      actions: options.actions ?? [],
     };
 
     this.addUserMessage(userMessage);
@@ -155,19 +161,14 @@ export class ErrorHandlerService implements IErrorHandlerService {
   /**
    * Handle async operation with error catching
    */
-  async handleAsync<T>(
-    operation: () => Promise<T>,
-    context: string,
-    fallback?: T
-  ): Promise<T> {
+  async handleAsync<T>(operation: () => Promise<T>, context: string, fallback?: T): Promise<T> {
     try {
       return await operation();
     } catch (error) {
       this.logError(error as Error, context);
-      this.showUserError(
-        'An unexpected error occurred. Please try again.',
-        { title: 'Operation Failed' }
-      );
+      this.showUserError('An unexpected error occurred. Please try again.', {
+        title: 'Operation Failed',
+      });
       return fallback as T;
     }
   }
@@ -175,19 +176,14 @@ export class ErrorHandlerService implements IErrorHandlerService {
   /**
    * Handle synchronous operation with error catching
    */
-  handleSync<T>(
-    operation: () => T,
-    context: string,
-    fallback?: T
-  ): T {
+  handleSync<T>(operation: () => T, context: string, fallback?: T): T {
     try {
       return operation();
     } catch (error) {
       this.logError(error as Error, context);
-      this.showUserError(
-        'An unexpected error occurred. Please try again.',
-        { title: 'Operation Failed' }
-      );
+      this.showUserError('An unexpected error occurred. Please try again.', {
+        title: 'Operation Failed',
+      });
       return fallback as T;
     }
   }
@@ -216,29 +212,21 @@ export class ErrorHandlerService implements IErrorHandlerService {
 
   private setupGlobalErrorHandlers(): void {
     // Handle unhandled promise rejections
-    window.addEventListener('unhandledrejection', (event) => {
-      this.logError(
-        new Error(event.reason),
-        'Unhandled Promise Rejection',
-        ErrorSeverity.HIGH
-      );
-      this.showUserError(
-        'An unexpected error occurred. The issue has been logged.',
-        { title: 'Unexpected Error', persistent: true }
-      );
+    window.addEventListener('unhandledrejection', event => {
+      this.logError(new Error(event.reason), 'Unhandled Promise Rejection', ErrorSeverity.HIGH);
+      this.showUserError('An unexpected error occurred. The issue has been logged.', {
+        title: 'Unexpected Error',
+        persistent: true,
+      });
     });
 
     // Handle uncaught errors
-    window.addEventListener('error', (event) => {
-      this.logError(
-        new Error(event.message),
-        'Global Error Handler',
-        ErrorSeverity.CRITICAL
-      );
-      this.showUserError(
-        'A critical error occurred. Please refresh the page.',
-        { title: 'Critical Error', persistent: true }
-      );
+    window.addEventListener('error', event => {
+      this.logError(new Error(event.message), 'Global Error Handler', ErrorSeverity.CRITICAL);
+      this.showUserError('A critical error occurred. Please refresh the page.', {
+        title: 'Critical Error',
+        persistent: true,
+      });
     });
   }
 
@@ -296,7 +284,7 @@ export class ErrorHandlerService implements IErrorHandlerService {
         message: error.message,
         stack: error.stack,
         userAgent: navigator.userAgent,
-        url: window.location.href
+        url: window.location.href,
       };
 
       const existingLogs = JSON.parse(localStorage.getItem('errorLogs') || '[]');

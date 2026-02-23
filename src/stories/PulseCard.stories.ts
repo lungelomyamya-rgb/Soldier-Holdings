@@ -48,7 +48,7 @@ type Story = StoryObj<typeof meta>;
 
 const mockStats: Stat[] = [
   { label: 'Daily Change', value: '+5.2%' },
-  { label: 'Volume', value: 'R 2.5M' }
+  { label: 'Volume', value: 'R 2.5M' },
 ];
 
 // Default story

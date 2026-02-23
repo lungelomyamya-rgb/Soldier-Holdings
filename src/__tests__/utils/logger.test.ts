@@ -57,7 +57,9 @@ describe('Logger', () => {
 
     test('should log with metadata', () => {
       expect(() => logger.info('Test message', { key: 'value' })).not.toThrow();
-      expect(() => logger.error('Error message', new Error('Test error'), { context: 'test' })).not.toThrow();
+      expect(() =>
+        logger.error('Error message', new Error('Test error'), { context: 'test' })
+      ).not.toThrow();
     });
   });
 
@@ -75,7 +77,7 @@ describe('Logger', () => {
     test('should generate correlation IDs', () => {
       const id1 = logger.generateCorrelationId();
       const id2 = logger.generateCorrelationId();
-      
+
       expect(id1).toBeDefined();
       expect(id2).toBeDefined();
       expect(id1).not.toBe(id2);
@@ -86,7 +88,7 @@ describe('Logger', () => {
       const context: CorrelationContext = {
         correlationId: 'test-123',
       };
-      
+
       logger.setCorrelationContext(context);
       expect(() => logger.clearCorrelationContext()).not.toThrow();
     });

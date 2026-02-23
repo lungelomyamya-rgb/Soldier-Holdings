@@ -73,7 +73,7 @@ const TransactionFeed: React.FC<TransactionFeedProps> = React.memo(
 
         return (
           <Box className={styles.emptyState}>
-            <Typography variant="body2">No transactions found for filter: {filter}</Typography>
+            <Typography variant='body2'>No transactions found for filter: {filter}</Typography>
           </Box>
         );
       }
@@ -84,11 +84,11 @@ const TransactionFeed: React.FC<TransactionFeedProps> = React.memo(
       });
 
       return (
-        <Box as="ul" className={styles.transactionList}>
+        <Box as='ul' className={styles.transactionList}>
           {filteredTransactions.map((transaction, index) => (
-            <TransactionItem 
-              key={`tx-${String(transaction.id || index)}`} 
-              transaction={transaction} 
+            <TransactionItem
+              key={`tx-${String(transaction.id || index)}`}
+              transaction={transaction}
             />
           ))}
         </Box>
@@ -98,14 +98,20 @@ const TransactionFeed: React.FC<TransactionFeedProps> = React.memo(
     return (
       <Box className={styles.transactionFeed}>
         <Box className={styles.feedHeader}>
-          <Typography variant="h3" className={styles.feedTitle}>
+          <Typography variant='h3' className={styles.feedTitle}>
             Identity-Wallet Live Feed
           </Typography>
-          <Flex as="div" role="group" aria-label="Filter transactions" className={styles.filterGroup}>
+          <Flex
+            as='div'
+            role='group'
+            aria-label='Filter transactions'
+            className={styles.filterGroup}
+          >
             {filterOptions.map(type => (
               <button
-                className={`${styles.filterButton} ${filter === type ? 
-                  styles.filterButtonActive : ''}`}
+                className={`${styles.filterButton} ${
+                  filter === type ? styles.filterButtonActive : ''
+                }`}
                 onClick={() => handleFilterChange(type)}
                 aria-pressed={filter === type}
               >

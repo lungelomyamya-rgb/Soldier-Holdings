@@ -1,6 +1,6 @@
 /**
  * Typography Component
- * 
+ *
  * A flexible text component that enforces consistent typography
  * across the application with proper semantic HTML elements
  * Extends the Box component to support all spacing utilities
@@ -97,12 +97,7 @@ const Typography = forwardRef<HTMLElement, TypographyProps>(
     );
 
     return (
-      <Box
-        ref={ref}
-        as={elementType as keyof JSX.IntrinsicElements}
-        className={classes}
-        {...props}
-      >
+      <Box ref={ref} as={elementType as keyof JSX.IntrinsicElements} className={classes} {...props}>
         {children}
       </Box>
     );

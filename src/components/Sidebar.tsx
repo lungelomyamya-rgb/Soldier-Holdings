@@ -6,11 +6,11 @@ import Typography from './ui/Typography';
 import { SidebarProps, NavItem } from '../types/index';
 import styles from '../styles/Sidebar.module.css';
 
-const Sidebar: React.FC<SidebarProps> = ({ 
-  activeNav, 
-  onNavChange, 
-  mobileMenuOpen, 
-  setMobileMenuOpen 
+const Sidebar: React.FC<SidebarProps> = ({
+  activeNav,
+  onNavChange,
+  mobileMenuOpen,
+  setMobileMenuOpen,
 }) => {
   const navItems: NavItem[] = [
     { id: 'overview', icon: 'chart-line', label: 'Overview', path: '/' },
@@ -29,36 +29,36 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <Box 
-      as="aside" 
+    <Box
+      as='aside'
       className={`${styles.sidebar} ${mobileMenuOpen ? styles.mobileOpen : ''}`}
-      aria-label="Main navigation"
+      aria-label='Main navigation'
       data-sidebar-open={mobileMenuOpen}
     >
       <Box className={styles.logo}>
         <Box className={styles.logoContent}>
           <i className={`fas fa-shield-alt ${styles.logoIcon}`}></i>
-          <Typography variant="h6" className={styles.logoText}>
+          <Typography variant='h6' className={styles.logoText}>
             Soldier Holdings
           </Typography>
         </Box>
       </Box>
-      
-      <Box as="nav" className={styles.navContainer}>
+
+      <Box as='nav' className={styles.navContainer}>
         <ul className={styles.navList}>
-          {navItems.map((item) => (
+          {navItems.map(item => (
             <li key={item.id} className={styles.navItem}>
               <a
                 href={item.path}
                 className={`${styles.navLink} ${activeNav === item.id ? styles.active : ''}`}
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   handleNavClick(item.id);
                 }}
                 aria-current={activeNav === item.id ? 'page' : undefined}
               >
-                <i className={`fas fa-${item.icon} ${styles.navIcon}`} aria-hidden="true" />
-                <Typography variant="body1" component="span">
+                <i className={`fas fa-${item.icon} ${styles.navIcon}`} aria-hidden='true' />
+                <Typography variant='body1' component='span'>
                   {item.label}
                 </Typography>
               </a>

@@ -1,6 +1,6 @@
 /**
  * Test Configuration
- * 
+ *
  * Settings for testing environment
  * Optimized for unit tests, integration tests, and E2E tests
  */

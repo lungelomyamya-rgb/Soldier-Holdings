@@ -1,6 +1,6 @@
 /**
  * UI and Display Types
- * 
+ *
  * Types for UI elements, stats, and display components
  */
 

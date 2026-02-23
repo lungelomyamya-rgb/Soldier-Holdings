@@ -1,11 +1,18 @@
 /**
  * React and DOM Types
- * 
+ *
  * React component types, DOM element types, and event handlers
  */
 
 import React, { ReactNode } from 'react';
-import { SidebarProps, PulseCardProps, TransactionItemProps, OverviewPageProps, FiatPageProps, CryptoPageProps } from './components';
+import {
+  SidebarProps,
+  PulseCardProps,
+  TransactionItemProps,
+  OverviewPageProps,
+  FiatPageProps,
+  CryptoPageProps,
+} from './components';
 
 // Component types
 export interface ComponentType {
@@ -77,7 +84,9 @@ export interface DOMElements {
 // Event Handler types
 export interface EventHandlers {
   onClick: (event: React.MouseEvent) => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => void;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   onKeyPress: (event: React.KeyboardEvent) => void;
   onFocus: (event: React.FocusEvent) => void;
@@ -107,7 +116,8 @@ export type DependencyList = ReadonlyArray<unknown>;
 export type MemoComponentType<P = {}> = React.NamedExoticComponent<P>;
 
 // Lazy types
-export type LazyComponentType<T extends React.ComponentType<any> = React.ComponentType<any>> = React.LazyExoticComponent<T>;
+export type LazyComponentType<T extends React.ComponentType<any> = React.ComponentType<any>> =
+  React.LazyExoticComponent<T>;
 
 // Suspense types
 export interface SuspenseProps {

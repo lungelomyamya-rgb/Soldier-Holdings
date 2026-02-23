@@ -1,6 +1,6 @@
 /**
  * Error Handling and User Message Types
- * 
+ *
  * Types for error handling, user notifications, and feedback systems
  */
 
@@ -65,14 +65,14 @@ export interface UseErrorHandlerResult {
   showUserWarning: (message: string, options?: UserWarningOptions) => void;
   showUserSuccess: (message: string, options?: UserSuccessOptions) => void;
   showUserInfo: (message: string, options?: UserInfoOptions) => void;
-  
+
   // Async handling
   handleAsync: <T>(
     asyncFn: () => Promise<T>,
     context?: string,
     fallback?: T
   ) => Promise<T | undefined>;
-  
+
   // Form handling
   handleSubmit: <T>(
     formData: T,
@@ -108,7 +108,13 @@ export interface ValidationResult {
 
 // Toast/notification types
 export interface ToastConfig {
-  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center';
+  position:
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-center'
+    | 'bottom-center';
   duration: number;
   maxToasts: number;
   showProgress: boolean;
