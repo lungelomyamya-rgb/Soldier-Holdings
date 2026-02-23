@@ -27,10 +27,6 @@
 
 /* Tablets (768px to 1024px) */
 @media (max-width: 1024px) {
-  .sidebar {
-    width: 260px;
-  }
-
   .main-content {
     padding: var(--space-6) var(--space-5);
   }
@@ -65,8 +61,8 @@
 /* Sidebar styles moved to Sidebar.module.css to avoid conflicts */
 
 /* Hide mobile elements when sidebar is open */
-.app-container:has([data-sidebar-open="true"]) .mobile-menu-toggle,
-.app-container:has([data-sidebar-open="true"]) .mobile-backdrop {
+.app-container:has([data-sidebar-open='true']) .mobile-menu-toggle,
+.app-container:has([data-sidebar-open='true']) .mobile-backdrop {
   opacity: 0;
   visibility: hidden;
   transform: scale(0.8);
@@ -74,15 +70,15 @@
 }
 
 /* Close sidebar when clicking outside navigation */
-.app-container:has([data-sidebar-open="true"]) .main-content {
+.app-container:has([data-sidebar-open='true']) .main-content {
   cursor: pointer;
 }
 
-.app-container:has([data-sidebar-open="true"]) .main-content * {
+.app-container:has([data-sidebar-open='true']) .main-content * {
   pointer-events: none;
 }
 
-.app-container:has([data-sidebar-open="true"]) .main-content .nav-link {
+.app-container:has([data-sidebar-open='true']) .main-content .nav-link {
   pointer-events: auto;
 }
 
@@ -112,7 +108,7 @@
 }
 
 /* Hide menu toggle when sidebar is open */
-.app-container:has(.sidebar[class*="mobileOpen"]) .mobile-menu-toggle {
+.app-container:has(.sidebar[class*='mobileOpen']) .mobile-menu-toggle {
   opacity: 0;
   visibility: hidden;
   transform: scale(0.8);
@@ -268,117 +264,6 @@
 
 .pulse-stat-value {
   font-size: var(--text-sm);
-}
-
-/* ===== STATS GRID MOBILE ===== */
-.stats-grid {
-  grid-template-columns: 1fr;
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
-.stat-card {
-  padding: var(--space-4);
-  border-radius: var(--radius-xl);
-}
-
-.stat-label {
-  font-size: var(--text-xs);
-  margin-bottom: var(--space-1);
-}
-
-.stat-value {
-  font-size: var(--text-xl);
-  margin-bottom: var(--space-2);
-}
-
-.stat-change {
-  font-size: var(--text-xs);
-  gap: var(--space-1);
-}
-
-.stat-change i {
-  font-size: 10px;
-}
-
-/* ===== TRANSACTION FEED MOBILE ===== */
-.transaction-feed {
-  padding: var(--space-4);
-  border-radius: var(--radius-xl);
-}
-
-.feed-header {
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
-  gap: var(--space-3);
-}
-
-.feed-header h3 {
-  font-size: var(--text-lg);
-}
-
-.feed-filter {
-  gap: var(--space-1);
-}
-
-.filter-btn {
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--text-xs);
-  border-radius: var(--radius-full);
-  min-width: 60px;
-  height: 32px;
-}
-
-.filter-btn.active {
-  min-width: 60px;
-  height: 32px;
-}
-
-/* Transction List */
-.transaction-list {
-  max-height: 400px;
-  gap: var(--space-2);
-  padding-right: var(--space-1);
-}
-
-.transaction-list::-webkit-scrollbar {
-  width: 2px;
-}
-
-/* Transaction Items */
-.transaction-item {
-  gap: var(--space-2);
-  padding: var(--space-2);
-  border-radius: var(--radius-lg);
-  width: 100%;
-  min-width: 280px;
-  flex-shrink: 0;
-}
-
-/* Transaction Icon */
-.tx-icon {
-  width: 32px;
-  height: 32px;
-  font-size: var(--text-sm);
-  border-radius: var(--radius-lg);
-}
-
-/* Transaction Amount */
-.tx-amount {
-  font-size: var(--text-sm);
-  margin-bottom: var(--space-1);
-  min-width: 120px;
-  text-align: left;
-}
-
-.tx-from {
-  font-size: var(--text-xs);
-  width: 160px;
-  max-width: 160px;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 /* Compliance Dashboard - Mobile Scaling */
@@ -700,6 +585,12 @@
 
   .transaction-feed {
     padding: var(--space-3);
+    flex: 1; /* Allow feed to grow within parent constraints */
+    min-height: 300px;
+    max-height: 500px; /* Reasonable max height instead of viewport calc */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .feed-header {
@@ -741,7 +632,6 @@
   }
 }
 
-/* Touch-friendly interactions */
 @media (hover: none) and (pointer: coarse) {
   .nav-item,
   .filter-btn,
