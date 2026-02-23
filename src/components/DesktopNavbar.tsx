@@ -16,8 +16,17 @@ const DesktopNavbar: React.FC = () => {
   return (
     <nav className='desktop-navbar'>
       <div className='navbar-logo'>
-        <i className='fas fa-shield-alt'></i>
-        Soldier Holdings
+        <img
+          src='/images/logo.png'
+          alt='Soldier Holdings Logo'
+          className='navbar-logo-icon'
+        />
+        <div className='navbar-logo-text'>
+          <div className='navbar-logo-title'>SOLDIER HOLDINGS</div>
+          <div className='navbar-logo-subtitle'>
+            Political Funding Compliance Platform
+          </div>
+        </div>
       </div>
 
       <div className='navbar-nav'>

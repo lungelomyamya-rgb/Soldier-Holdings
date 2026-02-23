@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/react';
-import App from './App';
+import RootApp from './RootApp';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ServiceProvider } from './context/ServiceContext';
 import { LoggingProvider, LoggingErrorBoundary } from './components/LoggingProvider';
@@ -48,7 +48,7 @@ root.render(
       >
         <ServiceProvider>
           <ErrorBoundary>
-            <App />
+            <RootApp />
           </ErrorBoundary>
         </ServiceProvider>
       </LoggingErrorBoundary>

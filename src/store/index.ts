@@ -12,6 +12,7 @@
 export { default as useUIStore } from './uiStore';
 export { default as useDataStore } from './dataStore';
 export { default as useAppStore } from './appStore';
+export { useAuthStore } from './authStore';
 
 // For backward compatibility, provide a combined hook
 // (Deprecated: Use individual stores for new code)

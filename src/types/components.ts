@@ -24,8 +24,6 @@ export interface PulseCardProps extends BaseComponentProps {
 }
 
 export interface SidebarProps extends BaseComponentProps {
-  activeNav: string;
-  onNavChange: (nav: string) => void;
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
 }

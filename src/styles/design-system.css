@@ -14,95 +14,93 @@
   box-sizing: border-box;
 }
 
-/* Enhanced Color Palette - Professional Corporate Colors */
+/* Enhanced Color Palette - Dark Theme Corporate Colors */
 :root {
-  /* Primary Brand Colors - Modern Professional Blues */
-  --primary: #2563eb; /* Modern Blue */
-  --primary-dark: #1d4ed8; /* Darker Blue */
+  /* Primary Brand Colors - Professional Dark Blues */
+  --primary: #1e3a8a; /* Dark Blue */
   --primary-light: #3b82f6; /* Light Blue */
   --primary-lighter: #60a5fa; /* Lighter Blue */
 
-  /* Secondary Colors - Sophisticated Purple */
-  --secondary: #7c3aed; /* Purple */
-  --secondary-dark: #6d28d9; /* Dark Purple */
-  --secondary-light: #a78bfa; /* Light Purple */
-
   /* Success & Status Colors - Fresh Greens */
-  --success: #16a34a; /* Green */
-  --success-dark: #15803d; /* Dark Green */
-  --success-light: #4ade80; /* Light Green */
+  --success: #059669; /* Green */
+  --success-light: #10b981; /* Light Green */
 
   /* Warning & Alert Colors - Warm Amber */
   --warning: #d97706; /* Amber */
-  --warning-dark: #b45309; /* Dark Amber */
-  --warning-light: #fbbf24; /* Light Amber */
+  --warning-light: #f59e0b; /* Light Amber */
 
   /* Error & Danger Colors - Clean Red */
   --danger: #dc2626; /* Red */
-  --danger-dark: #b91c1c; /* Dark Red */
-  --danger-light: #f87171; /* Light Red */
+  --danger-light: #ef4444; /* Light Red */
 
   /* Neutral Grays - Modern Scale */
-  --gray-50: #f8fafc; /* Very Light */
-  --gray-100: #f1f5f9; /* Light */
-  --gray-200: #e2e8f0; /* Light Medium */
-  --gray-300: #cbd5e1; /* Medium Light */
-  --gray-400: #94a3b8; /* Medium */
-  --gray-500: #64748b; /* Medium Dark */
-  --gray-600: #475569; /* Dark Medium */
-  --gray-700: #334155; /* Dark */
-  --gray-800: #1e293b; /* Very Dark */
-  --gray-900: #0f172a; /* Ultra Dark */
+  --gray-50: #f9fafb; /* Very Light */
+  --gray-100: #f3f4f6; /* Light */
+  --gray-200: #e5e7eb; /* Light Medium */
+  --gray-300: #d1d5db; /* Medium Light */
+  --gray-400: #9ca3af; /* Medium */
+  --gray-500: #6b7280; /* Medium Dark */
+  --gray-600: #4b5563; /* Dark Medium */
+  --gray-700: #374151; /* Dark */
+  --gray-800: #1f2937; /* Very Dark */
+  --gray-900: #111827; /* Ultra Dark */
 
-  /* Surface Colors - Modern Light */
-  --surface-primary: #ffffff; /* Pure White */
-  --surface-secondary: #f8fafc; /* Light Gray */
-  --surface-tertiary: #f1f5f9; /* Medium Light */
+  /* Surface Colors - Dark Theme */
+  --surface-primary: #0f172a; /* Dark */
+  --surface-secondary: #020617; /* Darker */
+  --surface-tertiary: #111827; /* Medium Dark */
 
-  /* Text Colors - High Contrast */
-  --text-primary: #0f172a; /* Dark */
-  --text-secondary: #334155; /* Medium Dark */
-  --text-tertiary: #64748b; /* Medium */
+  /* Text Colors - High Contrast Dark */
+  --text-primary: #ffffff; /* White */
+  --text-secondary: #9ca3af; /* Medium */
+  --text-tertiary: #6b7280; /* Medium Dark */
   --text-inverse: #ffffff; /* White */
 
-  /* Background Colors - Modern Gradients */
-  --bg-primary: #f8fafc; /* Light */
-  --bg-secondary: #f1f5f9; /* Medium Light */
-  --bg-tertiary: #e2e8f0; /* Light Medium */
+  /* Background Colors - Dark Gradients */
+  --bg-primary: #0f172a; /* Dark */
+  --bg-secondary: #020617; /* Darker */
+  --bg-tertiary: #111827; /* Medium Dark */
+  --bg-dark: #0f172a;
+  --bg-darker: #020617;
 
   /* Color-specific backgrounds for components */
-  --color-bg-elevated: rgba(255, 255, 255, 0.95); /* Elevated component backgrounds */
+  --color-bg-elevated: rgba(15, 23, 42, 0.95); /* Elevated component backgrounds */
 
-  /* Border Colors - Subtle */
-  --border-light: #f1f5f9; /* Very Light */
-  --border-medium: #e2e8f0; /* Light */
-  --border-strong: #cbd5e1; /* Medium */
-  --border-dark: #94a3b8; /* Dark */
+  /* Border Colors - Subtle Dark */
+  --border-light: #1f2937; /* Very Dark */
+  --border-medium: #374151; /* Dark */
+  --border-strong: #4b5563; /* Medium Dark */
+  --border-dark: #6b7280; /* Medium */
+  --color-border: #374151;
 
-  /* Enhanced Shadows - Modern Depth */
-  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.08), 0 1px 3px 0 rgba(15, 23, 42, 0.12);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.12), 0 2px 4px -1px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.12), 0 4px 6px -2px rgba(15, 23, 42, 0.08);
-  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.15), 0 10px 10px -5px rgba(15, 23, 42, 0.08);
-  --shadow-2xl: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+  /* Additional for modules */
+  --color-bg-subtle: rgba(15, 23, 42, 0.1);
+  --primary-50: rgba(30, 58, 138, 0.1);
+  --primary-700: #1e3a8a;
 
-  /* Glassmorphism - Subtle Modern */
-  --glass-bg: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.1);
+  /* Enhanced Shadows - Modern Depth Dark */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.08), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
-  /* Enhanced Gradients - Modern */
-  --gradient-primary: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-  --gradient-secondary: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-  --gradient-success: linear-gradient(135deg, #16a34a 0%, #4ade80 100%);
-  --gradient-warning: linear-gradient(135deg, #d97706 0%, #fbbf24 100%);
-  --gradient-danger: linear-gradient(135deg, #dc2626 0%, #f87171 100%);
+  /* Glassmorphism - Subtle Modern Dark */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+
+  /* Enhanced Gradients - Modern Dark */
+  --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  --gradient-success: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  --gradient-warning: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  --gradient-danger: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
   --gradient-glass: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.8) 100%
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.03) 100%
   );
-  --gradient-bg: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  --gradient-bg: linear-gradient(135deg, #0f172a 0%, #020617 50%, #111827 100%);
 
   /* Enhanced Typography - Professional Scale */
   --font-primary:
@@ -214,13 +212,14 @@ body {
   font-family: var(--font-primary);
   font-weight: var(--font-normal);
   font-size: var(--text-base);
-  line-height: var(--leading-normal);
+  line-height: 1.6;
   color: var(--text-primary);
   background: var(--gradient-bg);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 /* Enhanced Typography Hierarchy */
@@ -239,13 +238,15 @@ h6 {
 
 h1 {
   font-size: var(--text-4xl);
-  font-weight: var(--font-bold);
-  line-height: var(--leading-none);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--space-6);
 }
 
 h2 {
   font-size: var(--text-3xl);
-  font-weight: var(--font-semibold);
+  font-weight: 800;
+  margin-bottom: var(--space-4);
 }
 
 h3 {
@@ -273,6 +274,31 @@ h6 {
 p {
   margin: 0;
   line-height: var(--leading-relaxed);
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--space-6) var(--space-8);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+section {
+  padding: var(--space-16) var(--space-8);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+footer {
+  padding: var(--space-12) var(--space-8);
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid var(--glass-border);
+  text-align: center;
 }
 
 a {
@@ -314,18 +340,18 @@ a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--gray-800);
+  background: var(--bg-dark);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gray-600);
+  background: var(--gray-700);
   border-radius: var(--radius-full);
   transition: var(--transition-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gray-500);
+  background: var(--gray-600);
 }
 
 /* High Contrast Mode Support */

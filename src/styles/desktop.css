@@ -51,13 +51,39 @@
   }
 
   .navbar-logo {
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
-    color: var(--primary);
-    text-decoration: none;
-    letter-spacing: -0.02em;
     display: flex;
     align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+  }
+
+  .navbar-logo-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  .navbar-logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .navbar-logo-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .navbar-logo-subtitle {
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
   }
 
   .navbar-nav {

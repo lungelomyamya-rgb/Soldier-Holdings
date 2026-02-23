@@ -171,12 +171,12 @@
   border: none;
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: transform 0.3s, box-shadow 0.3s;
   box-shadow: var(--shadow-sm);
 }
 
 .btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
@@ -186,18 +186,27 @@
 }
 
 .btn-primary {
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   color: var(--text-inverse);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   filter: brightness(1.1);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-secondary {
-  background: var(--gradient-secondary);
-  color: var(--text-inverse);
+  background: rgba(5, 150, 105, 0.1);
+  border: 1px solid rgba(5, 150, 105, 0.3);
+  color: var(--success-light);
+}
+
+.btn-secondary:hover {
+  background: rgba(5, 150, 105, 0.2);
+  transform: translateY(-2px);
 }
 
 .btn-ghost {
@@ -209,6 +218,41 @@
 .btn-ghost:hover {
   background: var(--glass-bg);
   color: var(--text-primary);
+}
+
+/* Enhanced Card Component */
+.card {
+  padding: var(--space-6);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  opacity: 0;
+  transition: var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 /* Enhanced Input System */
@@ -2316,6 +2360,21 @@
 
 /* ===== ACCESSIBILITY & UTILITIES ===== */
 
+/* Card Actions */
+.card-actions {
+  margin-top: var(--space-4);
+  text-align: center;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--glass-border);
+}
+
+.card-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 140px;
+}
+
 /* Enhanced Focus Management */
 .focus-trap {
   outline: 2px solid var(--primary);
@@ -2342,5 +2401,82 @@
 
   .pulse-card:hover {
     transform: none;
+  }
+}
+
+/* Enhanced Responsive Design for All Pages */
+@media (max-width: 768px) {
+  .analytics-dashboard,
+  .compliance-dashboard,
+  .settings-dashboard {
+    gap: var(--space-4);
+  }
+
+  .analytics-card,
+  .compliance-card,
+  .settings-card {
+    padding: var(--space-4);
+  }
+
+  .analytics-card h3,
+  .compliance-card h3,
+  .settings-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .tool-button {
+    padding: var(--space-3);
+    font-size: var(--text-xs);
+  }
+
+  .btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  .compliance-metrics,
+  .risk-summary,
+  .compliance-events,
+  .pattern-list,
+  .report-list,
+  .user-list,
+  .settings-section {
+    gap: var(--space-2);
+  }
+
+  .compliance-metric,
+  .risk-level,
+  .event-item,
+  .pattern-item,
+  .report-item,
+  .user-item,
+  .setting-item {
+    padding: var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .analytics-dashboard,
+  .compliance-dashboard,
+  .settings-dashboard {
+    gap: var(--space-3);
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header h2 {
+    font-size: var(--text-xl);
+  }
+
+  .header p {
+    font-size: var(--text-sm);
   }
 }
