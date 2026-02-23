@@ -1,48 +1,20 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
-=======
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserRole, useAuthStore } from '../store/authStore';
->>>>>>> origin/main
 import styles from '../styles/Login.module.css';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
-<<<<<<< HEAD
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-
-    const success = login(email, password);
-    if (success) {
-      navigate('/dashboard');
-    } else {
-      setError('Invalid email or password. Please check the demo credentials.');
-    }
-=======
 
   const handleRoleSelect = (role: UserRole) => {
     login(role, 'Demo User');
     navigate('/dashboard');
->>>>>>> origin/main
   };
 
   return (
     <>
-<<<<<<< HEAD
-      <div className={styles.loginPage}>
-        <div className={styles.loginContainer}>
-=======
       <div className={styles.loginContainer}>
->>>>>>> origin/main
         <div className={styles.loginHeader}>
           <div className={styles.logo}>
             <img src="/images/logo.png" alt="Soldier Holdings Logo" />
@@ -56,41 +28,6 @@ const Login: React.FC = () => {
           <span>Back to Homepage</span>
         </Link>
 
-<<<<<<< HEAD
-        <h2>Login to Your Account</h2>
-
-        <form onSubmit={handleSubmit} className={styles.loginForm}>
-          <div className={styles.formGroup}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-
-          {error && <div className={styles.error}>{error}</div>}
-
-          <button type="submit" className={styles.loginButton}>
-            Login
-          </button>
-        </form>
-=======
         <h2>Select Your Account Type</h2>
 
         <div className={styles.roleSelector}>
@@ -130,39 +67,14 @@ const Login: React.FC = () => {
             <i className={styles.roleArrow}></i>
           </div>
         </div>
->>>>>>> origin/main
 
         <div className={styles.loginFooter}>
           <p>
             <i className="fas fa-lock"></i> Secure Authentication • AES-256 Encrypted
           </p>
-<<<<<<< HEAD
-          <div className={styles.demoCredentials}>
-            <h4>Demo Credentials:</h4>
-            <div className={styles.credentialList}>
-              <div>
-                <strong>Political Party:</strong><br />
-                Email: party@demo.za<br />
-                Password: demo123
-              </div>
-              <div>
-                <strong>Regulatory Body (IEC):</strong><br />
-                Email: iec@demo.za<br />
-                Password: demo123
-              </div>
-              <div>
-                <strong>Financial Institution:</strong><br />
-                Email: bank@demo.za<br />
-                Password: demo123
-              </div>
-            </div>
-          </div>
-        </div>
-=======
           <p>
             <strong>Demo Credentials:</strong> Click any role above to access the demo dashboard
           </p>
->>>>>>> origin/main
         </div>
       </div>
     </>
