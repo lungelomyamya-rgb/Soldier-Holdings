@@ -70,6 +70,9 @@
   --bg-secondary: #f1f5f9; /* Medium Light */
   --bg-tertiary: #e2e8f0; /* Light Medium */
 
+  /* Color-specific backgrounds for components */
+  --color-bg-elevated: rgba(255, 255, 255, 0.95); /* Elevated component backgrounds */
+
   /* Border Colors - Subtle */
   --border-light: #f1f5f9; /* Very Light */
   --border-medium: #e2e8f0; /* Light */
