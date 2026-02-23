@@ -88,6 +88,13 @@
   margin: 0 auto; /* Center the content */
 }
 
+/* Add content container for mobile width constraint */
+.mobile-content-container {
+  max-width: 480px; /* Reasonable max width for mobile content */
+  margin: 0 auto; /* Center the container */
+  width: 100%;
+}
+
 /* Mobile Menu Toggle - Enhanced */
 .mobile-menu-toggle {
   position: fixed;
@@ -160,16 +167,22 @@
 .crypto-metrics {
   grid-template-columns: 1fr;
   gap: var(--space-4);
+  max-width: 480px; /* Constrain grid width on mobile */
+  margin: 0 auto; /* Center the grid */
 }
 
 .risk-summary {
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--space-3);
+  max-width: 480px; /* Constrain grid width on mobile */
+  margin: 0 auto; /* Center the grid */
 }
 
 .tools-grid {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--space-3);
+  max-width: 480px; /* Constrain grid width on mobile */
+  margin: 0 auto; /* Center the grid */
 }
 
 /* Mobile Cards */
