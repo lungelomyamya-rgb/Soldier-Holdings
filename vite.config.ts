@@ -8,11 +8,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
+  // Only use /Soldier-Holdings/ base path when building for GitHub Pages deployment
   const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 
   return {
     plugins: [react()],
-    base: isGitHubPages ? '/Soldier-Holdings/' : (process.env.VITE_BASE_URL || '/'),
+    base: isGitHubPages ? '/Soldier-Holdings/' : '/',
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

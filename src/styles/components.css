@@ -9,7 +9,7 @@
 
 /* Enhanced App Container */
 .app-container {
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   display: flex;
   background: var(--gradient-bg);
   background-attachment: fixed;

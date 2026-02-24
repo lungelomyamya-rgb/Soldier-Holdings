@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import { getLogoPath } from '../utils/assets';
 import styles from '../styles/Login.module.css';
 
 const Login: React.FC = () => {
@@ -28,7 +29,7 @@ const Login: React.FC = () => {
         <div className={styles.loginContainer}>
         <div className={styles.loginHeader}>
           <div className={styles.logo}>
-            <img src="/images/logo.png" alt="Soldier Holdings Logo" />
+            <img src={getLogoPath()} alt="Soldier Holdings Logo" />
             <h1>SOLDIER HOLDINGS</h1>
           </div>
           <p className={styles.subtitle}>Political Funding Compliance Platform</p>

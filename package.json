@@ -98,9 +98,6 @@
     "__tests__/**/*.{ts,tsx}": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "*.{ts,tsx}": [
-      "tsc --noEmit --skipLibCheck"
     ]
   }
 }

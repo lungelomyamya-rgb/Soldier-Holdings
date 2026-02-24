@@ -10,6 +10,10 @@ import { initializeConfig, config, isProduction } from './config';
 // Initialize configuration before starting the app
 initializeConfig();
 
+// Initialize viewport handling for mobile devices
+import { initViewportHandling } from './utils/viewport';
+initViewportHandling();
+
 // Import CSS for bundling and optimization
 import './styles/styles.css';
 
@@ -42,8 +46,8 @@ root.render(
       _remoteEndpoint={import.meta.env.VITE_REACT_APP_LOGGING_ENDPOINT}
     >
       <LoggingErrorBoundary
-        onError={(error, errorInfo) => {
-          console.error('Application error:', error, errorInfo);
+        onError={() => {
+          // Error handled by LoggingErrorBoundary
         }}
       >
         <ServiceProvider>

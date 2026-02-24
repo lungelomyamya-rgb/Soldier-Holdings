@@ -130,7 +130,7 @@
   /* Override fixed dimensions for mobile */
   .transactionFeed {
     width: 100%; /* Full width on mobile */
-    height: 60vh; /* Use fixed viewport height for simplicity */
+    height: calc(var(--vh, 1vh) * 60); /* Use dynamic vh instead of 60vh */
     flex-shrink: 1; /* Allow shrinking */
   }
 
@@ -153,11 +153,11 @@
 
   /* More restrictive for ultra-small mobiles */
   .transactionFeed {
-    max-height: calc(100vh - 320px);
+    max-height: calc(calc(var(--vh, 1vh) * 100) - 320px);
   }
 
   .transactionList {
-    max-height: calc(100vh - 420px);
+    max-height: calc(calc(var(--vh, 1vh) * 100) - 420px);
     padding-bottom: 1.5rem; /* Add padding to ensure last item visibility */
   }
 }

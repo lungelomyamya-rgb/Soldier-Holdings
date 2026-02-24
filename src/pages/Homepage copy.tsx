@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserRole } from '../store/authStore';
+import { getLogoPath } from '../utils/assets';
 import styles from '../styles/Homepage.module.css';
 
 const Homepage: React.FC = () => {
@@ -20,7 +21,7 @@ const Homepage: React.FC = () => {
       <nav>
         <div className={styles.navContainer}>
           <div className={styles.logo}>
-            <img src="/images/logo.png" alt="Soldier Holdings Logo" className={styles.logoIcon} />
+            <img src={getLogoPath()} alt="Soldier Holdings Logo" className={styles.logoIcon} />
             <span className={styles.logoText}>SOLDIER HOLDINGS</span>
           </div>
           <div className={styles.navButtons}>

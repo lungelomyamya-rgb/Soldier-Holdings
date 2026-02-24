@@ -1,5 +1,6 @@
 import React from 'react';
 import useUIStore from '../store/uiStore';
+import { getLogoPath } from '../utils/assets';
 
 const DesktopNavbar: React.FC = () => {
   const { activeNav, setActiveNav } = useUIStore();
@@ -17,7 +18,7 @@ const DesktopNavbar: React.FC = () => {
     <nav className='desktop-navbar'>
       <div className='navbar-logo'>
         <img
-          src='/images/logo.png'
+          src={getLogoPath()}
           alt='Soldier Holdings Logo'
           className='navbar-logo-icon'
         />

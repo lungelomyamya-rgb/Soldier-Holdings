@@ -7,6 +7,7 @@ import Typography from './ui/Typography';
 import { SidebarProps, NavItem } from '../types/index';
 import styles from '../styles/Sidebar.module.css';
 import { useAuthStore } from '../store/authStore';
+import { getLogoPath } from '../utils/assets';
 
 const Sidebar: React.FC<SidebarProps> = ({
   activeNav,
@@ -49,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       <Box className={styles.logo}>
         <Box className={styles.logoContent}>
-          <img src="/images/logo.png" alt="Soldier Holdings Logo" className={styles.logoIcon} />
+          <img src={getLogoPath()} alt="Soldier Holdings Logo" className={styles.logoIcon} />
           <Typography variant='h6' className={styles.logoText}>
             Soldier Holdings
           </Typography>

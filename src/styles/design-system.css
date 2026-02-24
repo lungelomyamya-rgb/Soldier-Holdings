@@ -182,15 +182,14 @@
   --transition-normal: 0.3s ease-in-out;
   --transition-slow: 0.5s ease-in-out;
 
-  /* Z-Index Scale - Professional Layering */
-  --z-dropdown: 1000;
-  --z-sticky: 1020;
-  --z-fixed: 1030;
-  --z-modal: 1040;
-  --z-popover: 1050;
-  --z-tooltip: 1060;
-  --z-toast: 1070;
-}
+  /* Safe Area Inset Variables for modern mobile devices */
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+
+  /* Dynamic Viewport Units - more reliable than 100vh on mobile */
+  --vh: 1vh; /* Will be set by JavaScript for better mobile support */
 
 /* Enhanced Base Styles */
 *,
@@ -426,4 +425,5 @@ a:hover {
     --space-8: 1.5rem;
     --space-6: 1.25rem;
   }
+}
 }

@@ -115,12 +115,15 @@
   width: 100%;
 }
 
-/* Overview Page Mobile Layout */
+/* Overview Page Mobile Layout - Fixed for modern mobile devices */
 .overview-page-mobile-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure full viewport height */
-  padding-bottom: var(--space-4); /* Add bottom padding to prevent overflow */
+  min-height: calc(var(--vh, 1vh) * 100); /* Use dynamic vh instead of 100vh */
+  padding-bottom: max(var(--safe-area-inset-bottom), var(--space-4)); /* Safe area + minimum padding */
+  padding-top: var(--safe-area-inset-top); /* Account for notches/status bars */
+  padding-left: var(--safe-area-inset-left); /* Account for left insets */
+  padding-right: var(--safe-area-inset-right); /* Account for right insets */
 }
 
 /* Mobile Menu Toggle - Enhanced */

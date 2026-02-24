@@ -3,7 +3,7 @@
   width: 250px;
   background: var(--color-bg-elevated, #ffffff);
   border-right: 1px solid var(--color-border, #e5e7eb);
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   position: fixed;
   top: 0;
   left: 0;
